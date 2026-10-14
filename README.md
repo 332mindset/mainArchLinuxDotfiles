@@ -5,6 +5,12 @@ a compact Waybar, Rofi menus and a matching terminal.
 
 [Watch the desktop showcase on YouTube](https://www.youtube.com/watch?v=beIpVuMDd-8).
 
+**Install the dependencies below before applying these dotfiles.**
+`install.py` copies configuration files, scripts and wallpapers and backs up
+the files it replaces. Package installation, graphics driver setup and shell
+integration are manual steps described below. Running `python3 install.py`
+only previews the changes; add `--apply` to install the files.
+
 ## What's included
 
 | Component | Configuration |
@@ -44,13 +50,22 @@ characters, and the default `~/.config` location.
 
 ## Dependencies
 
-On an existing Arch Linux desktop, review and install the packages below.
+These instructions start from an already installed Arch Linux system.
+Review and install the packages below before following the installation steps.
 The installer does not install packages or configure your graphics drivers.
+
+You can apply these dotfiles from either a graphical session or a TTY.
+On a minimal Arch installation with only a TTY, first set up a regular user,
+working internet, access to `sudo`, and the graphics drivers appropriate for
+your GPU. Then install the dependencies below (including Git and Python),
+apply the dotfiles as that user, and launch Hyprland using the command in the
+installation section. The Python installer alone does not prepare a bare
+Arch installation for a graphical desktop.
 
 ```sh
 sudo pacman -Syu --needed \
   hyprland hyprlock waybar rofi foot swaync cava awww \
-  python wl-clipboard cliphist grim slurp libnotify \
+  git python wl-clipboard cliphist grim slurp libnotify \
   wireplumber pipewire pipewire-pulse playerctl pavucontrol \
   fastfetch dolphin fontconfig ttf-jetbrains-mono-nerd adwaita-fonts \
   breeze-cursors breeze-icons glib2 util-linux procps-ng coreutils \
