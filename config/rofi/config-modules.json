@@ -1,0 +1,68 @@
+[
+  {
+    "id": "hyprland",
+    "label": "Hyprland",
+    "folder": "hypr",
+    "file": "hyprland.lua"
+  },
+  {
+    "id": "waybar",
+    "label": "Waybar",
+    "folder": "waybar",
+    "file": "config.jsonc"
+  },
+  {
+    "id": "rofi",
+    "label": "Rofi",
+    "folder": "rofi",
+    "file": "config.rasi"
+  },
+  {
+    "id": "foot",
+    "label": "Foot — terminal",
+    "folder": "foot",
+    "file": "foot.ini"
+  },
+  {
+    "id": "swaync",
+    "label": "SwayNC — notifications",
+    "folder": "swaync",
+    "file": "config.json"
+  },
+  {
+    "id": "bash",
+    "label": "Bash — appearance",
+    "folder": "bash",
+    "file": "terminal.sh"
+  },
+  {
+    "id": "cava",
+    "label": "Cava — visualizer",
+    "folder": "cava",
+    "file": "config"
+  },
+  {
+    "id": "gtk3",
+    "label": "GTK 3",
+    "folder": "gtk-3.0",
+    "file": "settings.ini"
+  },
+  {
+    "id": "gtk4",
+    "label": "GTK 4",
+    "folder": "gtk-4.0",
+    "file": "settings.ini"
+  },
+  {
+    "id": "dolphin",
+    "label": "Dolphin — appearance",
+    "folder": "dolphin",
+    "file": "rice.qss"
+  },
+  {
+    "id": "fastfetch",
+    "label": "Fastfetch — welcome screen",
+    "folder": "fastfetch",
+    "file": "config.jsonc"
+  }
+]

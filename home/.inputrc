@@ -1,0 +1,24 @@
+# Keep the distribution's navigation and UTF-8 defaults.
+$include /etc/inputrc
+
+$if Bash
+set bell-style none
+set colored-stats on
+set colored-completion-prefix on
+set completion-ignore-case on
+set show-all-if-ambiguous on
+set menu-complete-display-prefix on
+set completion-prefix-display-length 3
+set page-completions on
+set enable-bracketed-paste on
+
+# Tab cycles through a colored list; Shift+Tab cycles backwards.
+"\C-i": menu-complete
+"\e[Z": menu-complete-backward
+
+# Type the beginning of a command, then use arrows to search history.
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\eOA": history-search-backward
+"\eOB": history-search-forward
+$endif

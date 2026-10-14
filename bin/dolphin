@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -eu
+export QT_STYLE_OVERRIDE=Fusion
+exec /usr/bin/dolphin -stylesheet "${XDG_CONFIG_HOME:-$HOME/.config}/dolphin/rice.qss" "$@"

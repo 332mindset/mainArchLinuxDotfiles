@@ -1,0 +1,36 @@
+/* Fixed palette matching Waybar and Hyprlock. */
+:root {
+  --cc-bg: rgba(24, 24, 24, 0.96);
+  --noti-bg: 32, 32, 32;
+  --noti-bg-alpha: 0.96;
+  --noti-bg-darker: #181818;
+  --noti-bg-hover: #383838;
+  --noti-bg-focus: rgba(212, 212, 212, 0.12);
+  --noti-border-color: rgba(184, 184, 184, 0.45);
+  --noti-close-bg: #303030;
+  --noti-close-bg-hover: #b8b8b8;
+  --text-color: #e2e2e2;
+  --text-color-disabled: #919191;
+  --bg-selected: #d4d4d4;
+  --border-radius: 18px;
+  --font-size-body: 13px;
+  --font-size-summary: 15px;
+  --notification-icon-size: 42px;
+}
+* { font-family: "JetBrainsMono Nerd Font", sans-serif; }
+.control-center { border: 1px solid rgba(212, 212, 212, 0.35); padding: 10px; }
+.notification { border-left: 3px solid #b8b8b8; }
+.notification.critical { border-left-color: #c8c8c8; }
+.notification-default-action { padding: 12px; }
+.summary { color: #e2e2e2; }
+.body { color: #b8b8b8; }
+.time { color: #919191; font-size: 11px; }
+.widget-title { color: #d4d4d4; font-size: 19px; font-weight: bold; }
+.widget-title > button { background: #303030; color: #e2e2e2; border-radius: 12px; padding: 6px 12px; border: none; }
+.widget-title > button:hover { background: #b8b8b8; color: #181818; }
+.widget-dnd { color: #e2e2e2; }
+.widget-dnd > switch { background: #303030; border: none; border-radius: 16px; }
+.widget-dnd > switch:checked { background: #b8b8b8; }
+.widget-dnd > switch slider { background: #e2e2e2; border-radius: 16px; }
+.close-button { background: #303030; color: #e2e2e2; }
+.close-button:hover { background: #b8b8b8; color: #181818; }

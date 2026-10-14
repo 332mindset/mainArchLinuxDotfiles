@@ -1,0 +1,163 @@
+# Arch Linux + Hyprland dotfiles
+
+My monochrome desktop configuration: translucent windows, smooth animations,
+a compact Waybar, Rofi menus and a matching terminal.
+
+[Watch the desktop showcase on YouTube](https://www.youtube.com/watch?v=beIpVuMDd-8).
+
+## What's included
+
+| Component | Configuration |
+| --- | --- |
+| Hyprland | Lua config, animations, window rules and keybindings |
+| Waybar | Workspaces A–D, audio visualizer, media controls, tray and notifications |
+| Rofi | Apps, configuration folders, file browser, wallpaper and power menus |
+| Foot + Bash | Monochrome terminal, prompt, completion and Fastfetch welcome card |
+| Hyprlock | Matching lock screen and image |
+| SwayNC | Notification popups and control center |
+| Cava | Standalone audio visualizer and Waybar integration |
+| Dolphin | Custom stylesheet and launcher |
+| GTK + Fontconfig | Fonts and Breeze Light cursor settings |
+| Scripts | Clipboard history, screenshots, wallpaper switching and power menu |
+
+The wallpaper picker reads `~/Pictures/Wallpapers`. Wallpapers from the
+[`wallpapers`](wallpapers) folder are installed there; add your own images
+for more choices.
+
+## Compatibility
+
+Prepared from an Arch Linux installation with Hyprland **0.56.2**, Waybar 0.15.0,
+Rofi 2.0.0, Foot 1.28.0, Hyprlock 0.9.6, SwayNC 0.12.6, Cava 1.0.0 and
+awww 0.12.1. These are the source machine's versions, not a guarantee that
+every future update will behave the same.
+
+This config uses Hyprland's **Lua API** (`hyprland.lua`). Older installations
+that only support `hyprland.conf` cannot use it directly.
+See the [Hyprland configuration documentation](https://wiki.hypr.land/configuring/core/).
+
+The shared version selects monitor modes automatically. NVIDIA overrides from
+the original machine are commented out. The original two-monitor layout is in
+[`examples/monitors.lua`](examples/monitors.lua).
+
+This setup expects Bash, a standard home path without spaces or special
+characters, and the default `~/.config` location.
+
+## Dependencies
+
+On an existing Arch Linux desktop, review and install the packages below.
+The installer does not install packages or configure your graphics drivers.
+
+```sh
+sudo pacman -Syu --needed \
+  hyprland hyprlock waybar rofi foot swaync cava awww \
+  python wl-clipboard cliphist grim slurp libnotify \
+  wireplumber pipewire pipewire-pulse playerctl pavucontrol \
+  fastfetch dolphin fontconfig ttf-jetbrains-mono-nerd adwaita-fonts \
+  breeze-cursors breeze-icons glib2 util-linux procps-ng coreutils \
+  xdg-desktop-portal-hyprland
+```
+
+Optional: `brightnessctl` enables the brightness keys; `code` (Visual Studio
+Code) enables the Rofi **Configs** tab. The desktop itself does not need VS Code.
+
+## Installation
+
+1. Clone the repository and open its folder:
+
+   ```sh
+   git clone https://github.com/332mindset/mainArchLinuxDotfiles.git
+   cd mainArchLinuxDotfiles
+   ```
+
+   Alternatively, use **Code → Download ZIP**, extract it, and open a terminal
+   in the extracted folder.
+2. Review the configuration and preview the changes:
+
+   ```sh
+   python3 install.py
+   ```
+
+3. Install as your desktop user, **without sudo**:
+
+   ```sh
+   python3 install.py --apply
+   ```
+
+The installer copies files into your home directory, fills in your home path
+where the templates contain `@HOME@`, and sets executable permissions on
+scripts. Existing component folders/files are moved to a dated backup under
+`~/.local/state/dotfiles/backups/`. Each listed config folder is replaced as a
+whole, so settings from your old folder remain in the backup.
+
+Symlinked destinations are refused: if you already manage your configuration
+with Stow or another dotfiles manager, adapt the files through that manager.
+The installer leaves `~/.bashrc` and your login configuration alone.
+
+4. To enable the matching Bash prompt and welcome card, append the contents
+   of [`examples/bashrc.snippet`](examples/bashrc.snippet) to your `~/.bashrc`.
+5. Review `~/.config/hypr/hyprland.lua`. Keyboard layouts are **US + Russian**;
+   **Super + Space** switches them. Set `kb_layout = "us"` and `kb_options = ""`
+   if you only want English.
+6. Log out and start Hyprland again when ready. From a TTY, you can use:
+
+   ```sh
+   start-hyprland -- --config "$HOME/.config/hypr/hyprland.lua"
+   ```
+
+7. Press **Super + F** and choose a wallpaper. It will be restored on subsequent
+   sessions after the first successful selection.
+
+## Keybindings
+
+`Super` is the Windows key.
+
+| Keys | Action |
+| --- | --- |
+| Super + Q | Open Foot |
+| Super + C | Close the focused window |
+| Super + E | Open Dolphin |
+| Super + D | Open Rofi |
+| Super + F | Choose a wallpaper |
+| Super + N | Toggle notifications |
+| Super + R | Restart Waybar |
+| Super + L / Super + Shift + D | Lock the screen |
+| Ctrl + Super + V | Clipboard history |
+| Print / Shift + Print | Area / full screenshot, saved and copied |
+| Super + Shift + E | Power menu |
+| Super + 1…9, 0 | Switch workspace (0 is workspace 10) |
+| Super + Shift + 1…9, 0 | Move window to workspace |
+| Super + arrows | Move focus |
+| Super + V | Toggle floating |
+| Super + P / Super + J | Pseudotile / toggle split |
+| Super + S / Super + Shift + S | Toggle / move to scratchpad |
+| Super + mouse drag | Move or resize a window |
+
+The clipboard collector stores copied text/images locally; its history is
+runtime data and is not included in this repository.
+
+## Troubleshooting and backups
+
+Check configuration errors with `hyprctl configerrors`. Reload an already
+running desktop with `~/.config/hypr/scripts/apply-desktop.sh` after checking
+your monitor settings. A fresh session also starts the clipboard collector
+and notification daemon.
+
+If symbols look like boxes, check that JetBrainsMono Nerd Font is installed.
+The wallpaper picker requires **awww**, not hyprpaper.
+
+To restore a previous configuration, use the backup directory printed by the
+installer. It mirrors the replaced paths in your home (for example,
+`BACKUP/.config/hypr` is the old `~/.config/hypr`). From another TTY/session,
+remove or rename the corresponding installed component folder, then copy
+its backed-up version into place. Files that did not exist before installation
+have no backup. Your other configuration folders are not part of this install.
+
+## Credits
+
+Existing source comments and attributions are preserved:
+
+- Waybar styling credits [JaKooLit](https://github.com/JaKooLit).
+- The Rofi sidebar layout was inspired by
+  [adi1090x/rofi](https://github.com/adi1090x/rofi/blob/master/files/launchers/type-1/style-9.rasi).
+- The base Rofi theme comes from
+  [newmanls/rofi-themes-collection](https://github.com/newmanls/rofi-themes-collection/blob/master/themes/simple-tokyonight.rasi).

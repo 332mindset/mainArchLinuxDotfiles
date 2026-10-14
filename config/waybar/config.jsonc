@@ -1,0 +1,27 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 36,
+  "margin-left": 50,
+  "margin-right": 50,
+  "margin-top": 5,
+  "fixed-center": true,
+  "reload_style_on_change": true,
+  "include": [
+    "@HOME@/.config/waybar/Modules"
+  ],
+  "modules-left": [
+    "custom/menu",
+    "hyprland/window",
+    "group/info"
+  ],
+  "modules-center": [
+    "hyprland/workspaces#letters"
+  ],
+  "modules-right": [
+    "custom/cava",
+    "group/demo",
+    "group/hub",
+    "custom/power"
+  ]
+}

@@ -1,0 +1,21 @@
+/* Fixed palette; independent of wallpaper generators. */
+@define-color foreground #e2e2e2;
+@define-color background alpha(#101010,0.05);
+@define-color cursor #c8c8c8;
+
+@define-color color0 #101010;
+@define-color color1 #858585;
+@define-color color2 #b0b0b0;
+@define-color color3 #a0a0a0;
+@define-color color4 #b8b8b8;
+@define-color color5 #b8b8b8;
+@define-color color6 #b8b8b8;
+@define-color color7 #d4d4d4;
+@define-color color8 #919191;
+@define-color color9 #858585;
+@define-color color10 #b0b0b0;
+@define-color color11 #a0a0a0;
+@define-color color12 #b8b8b8;
+@define-color color13 #b8b8b8;
+@define-color color14 #b8b8b8;
+@define-color color15 #d4d4d4;

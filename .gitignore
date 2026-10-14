@@ -1,0 +1,13 @@
+# Keep backups, runtime state, credentials and editor debris out of the repo.
+**/backups/
+**/__pycache__/
+*.pyc
+*.log
+*.bak
+*.swp
+*~
+.env
+.env.*
+*.pem
+*.key
+.DS_Store

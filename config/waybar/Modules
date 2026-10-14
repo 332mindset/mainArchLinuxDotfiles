@@ -1,0 +1,216 @@
+{
+  "clock": {
+    "interval": 1,
+    "format": "{:%H:%M}",
+    "format-alt": " {:%H:%M   %d.%m.%Y}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  },
+  "custom/separator#blank": {
+    "format": " ",
+    "tooltip": false
+  },
+  "network": {
+    "format-ethernet": "󰌘",
+    "format-wifi": "󰤨",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{ifname}: {ipaddr}\n↑ {bandwidthUpBits} ↓ {bandwidthDownBits}"
+  },
+  "group/audio": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "pulseaudio",
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "pulseaudio",
+      "pulseaudio#microphone"
+    ]
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁",
+    "format-icons": {
+      "headphone": "",
+      "headset": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol -t 3",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "tooltip-format": "{desc} | {volume}%"
+  },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click-right": "pavucontrol -t 4",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
+    "tooltip-format": "{source_desc} | {source_volume}%"
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 4
+  },
+  "cpu": {
+    "format": "{usage}% 󰍛",
+    "interval": 2,
+    "tooltip": true
+  },
+  "memory": {
+    "format": "{used:0.1f}G 󰾆",
+    "interval": 10,
+    "tooltip-format": "{used:0.1f} / {total:0.1f} GB"
+  },
+  "disk": {
+    "format": "{percentage_used}% 󰋊",
+    "path": "/",
+    "interval": 30,
+    "tooltip-format": "{used} / {total}"
+  },
+  "group/desktop": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "desktop-detail",
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "cpu",
+      "memory",
+      "disk"
+    ]
+  },
+  "hyprland/workspaces#letters": {
+    "disable-scroll": true,
+    "show-special": false,
+    "all-outputs": true,
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "default": "·"
+    },
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    }
+  },
+  "custom/menu": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "rofi -show drun"
+  },
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 24,
+    "separate-outputs": true,
+    "fallback": "~empty",
+    "rewrite": {
+      "^$": "~empty"
+    }
+  },
+  "custom/arrow-right": {
+    "format": "󰁙",
+    "tooltip": false
+  },
+  "group/info": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/arrow-right",
+      "cpu",
+      "memory",
+      "disk"
+    ]
+  },
+  "group/demo": {
+    "orientation": "inherit",
+    "modules": [
+      "tray",
+      "pulseaudio",
+      "mpris"
+    ]
+  },
+  "custom/cava": {
+    "exec": "python3 -u ~/.config/waybar/scripts/cava.py",
+    "exec-if": "command -v cava",
+    "return-type": "json",
+    "format": "{text}",
+    "hide-empty-text": true,
+    "restart-interval": 3,
+    "exec-on-event": false,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "tooltip": true
+  },
+  "mpris": {
+    "format": "{player_icon}",
+    "format-paused": "{status_icon}",
+    "player-icons": {
+      "default": "",
+      "spotify": "",
+      "firefox": ""
+    },
+    "status-icons": {
+      "paused": "󰐎"
+    },
+    "tooltip-format": "{artist} — {title}",
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous"
+  },
+  "custom/notifications": {
+    "format": "{icon}",
+    "return-type": "json",
+    "exec-if": "command -v swaync-client",
+    "exec": "swaync-client -swb",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂚",
+      "dnd-notification": "󰂛",
+      "dnd-none": "󰂛",
+      "inhibited-notification": "󰂚",
+      "inhibited-none": "󰂚",
+      "dnd-inhibited-notification": "󰂛",
+      "dnd-inhibited-none": "󰂛"
+    },
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw"
+  },
+  "group/hub": {
+    "orientation": "inherit",
+    "modules": [
+      "custom/notifications",
+      "clock"
+    ]
+  },
+  "custom/power": {
+    "format": "⏻",
+    "tooltip-format": "Power menu",
+    "on-click": "~/.config/hypr/scripts/power_menu.py",
+    "on-click-right": "~/.config/hypr/scripts/power_menu.py"
+  },
+  "custom/mute": {
+    "exec": "~/.config/hypr/scripts/mute-status.py",
+    "return-type": "json",
+    "interval": 1,
+    "on-click": "~/.config/hypr/scripts/mute-status.py toggle",
+    "tooltip": true
+  }
+}

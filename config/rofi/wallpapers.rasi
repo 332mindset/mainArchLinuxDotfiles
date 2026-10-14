@@ -1,0 +1,95 @@
+@theme "themes/simple-tokyonight.rasi"
+
+* {
+    font: "JetBrainsMono Nerd Font 11";
+    bg0: #181818;
+    bg1: #202020;
+    bg2: #303030;
+    bg3: #b8b8b8;
+    fg0: #e2e2e2;
+    fg2: #919191;
+    accent: #dedede;
+}
+
+window {
+    width: 820px;
+    background-color: @bg0;
+    border: 2px;
+    border-color: @bg3;
+    border-radius: 20px;
+    padding: 18px;
+}
+
+mainbox {
+    children: [ inputbar, message, listview ];
+    spacing: 12px;
+}
+
+inputbar {
+    children: [ prompt, entry ];
+    background-color: @bg1;
+    border-radius: 12px;
+    padding: 14px;
+    spacing: 14px;
+}
+
+prompt { text-color: @accent; }
+entry { placeholder: "Search by name…"; placeholder-color: @fg2; }
+message { background-color: transparent; }
+textbox {
+    background-color: transparent;
+    text-color: @fg2;
+    font: "JetBrainsMono Nerd Font 10";
+    padding: 0 2px;
+}
+
+listview {
+    lines: 2;
+    columns: 3;
+    layout: vertical;
+    flow: horizontal;
+    fixed-columns: true;
+    fixed-height: true;
+    dynamic: false;
+    scrollbar: false;
+    spacing: 12px;
+    padding: 0;
+}
+
+element {
+    orientation: vertical;
+    children: [ element-icon, element-text ];
+    padding: 10px;
+    spacing: 10px;
+    border: 2px;
+    border-radius: 14px;
+    border-color: @bg1;
+    background-color: @bg1;
+    text-color: @fg0;
+}
+element normal normal, element alternate normal {
+    background-color: @bg1;
+    border-color: @bg1;
+    text-color: @fg0;
+}
+element normal active, element alternate active {
+    background-color: @bg1;
+    border-color: @bg3;
+    text-color: @fg0;
+}
+element selected normal, element selected active {
+    background-color: @bg2;
+    border-color: @accent;
+    text-color: @fg0;
+}
+element-icon {
+    size: 160px;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    expand: false;
+}
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    text-color: inherit;
+}
