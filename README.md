@@ -11,8 +11,9 @@
   <a href="https://www.youtube.com/watch?v=beIpVuMDd-8"><img src="https://img.shields.io/badge/Showcase-YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="Showcase on YouTube"></a>
 </p>
 
-My desktop configuration: translucent windows, smooth animations, a compact
-Waybar, One Dark Rofi menus, a dashboard lock screen and a matching terminal.
+My desktop configuration in [Catppuccin Mocha](https://catppuccin.com):
+translucent windows with rotating gradient borders, smooth animations, a compact
+Waybar, Rofi menus, a glass lock screen and a matching terminal.
 
 [Watch the desktop showcase on YouTube](https://www.youtube.com/watch?v=beIpVuMDd-8).
 
@@ -27,10 +28,10 @@ only previews the changes; add `--apply` to install the files.
 | Component | Configuration |
 | --- | --- |
 | Hyprland | Lua config, animations, window rules and keybindings |
-| Waybar | Workspaces A–F, media, tray, volume, keyboard layout (EN/RU), idle inhibitor and notifications |
-| Rofi | One Dark launcher (apps, configuration folders, file browser), clipboard, wallpaper carousel and power menu |
+| Waybar | Animated workspaces A–F, media, tray, volume, keyboard layout (EN/RU), idle inhibitor and notifications |
+| Rofi | Launcher (apps, configuration folders, file browser), clipboard, wallpaper carousel and power menu |
 | Kitty + Zsh | Catppuccin Mocha terminal, oh-my-zsh prompt and a Fastfetch welcome card with a random pixel-art image |
-| Hyprlock | Dashboard lock screen: music, calendar, system stats, volume and notifications ([details](config/hypr/assets/hyprlock/dashboard/README.md)) |
+| Hyprlock | Glass lock screen: blurred desktop, clock, avatar and now playing with cover art and player controls |
 | SwayNC | Notification popups and control center |
 | Cava | Standalone audio visualizer |
 | Dolphin | Custom stylesheet and launcher |
@@ -206,7 +207,8 @@ have no backup. Your other configuration folders are not part of this install.
 
 Existing source comments and attributions are preserved:
 
-- Waybar styling credits [JaKooLit](https://github.com/JaKooLit).
+- Waybar layout is based on [JaKooLit](https://github.com/JaKooLit)'s styling.
+- Colors: [Catppuccin](https://github.com/catppuccin/catppuccin) Mocha palette.
 - The Rofi theme is based on
   [adi1090x/rofi](https://github.com/adi1090x/rofi/blob/master/files/launchers/type-1/style-5.rasi)
-  (type-1, style-5) with the One Dark colors.
+  (type-1, style-5), recolored with Catppuccin Mocha.

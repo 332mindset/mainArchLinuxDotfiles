@@ -1,4 +1,4 @@
-# Monochrome spectrum matching Foot, Hyprland and Waybar.
+# Catppuccin Mocha spectrum matching Kitty, Hyprland and Waybar.
 # r: reload config; arrows: adjust sensitivity / number of bars; q: quit.
 
 [general]
@@ -30,16 +30,16 @@ waveform = 0
 
 [color]
 # Leave background unset to preserve Foot's background and transparency.
-foreground = '#e2e2e2'
+foreground = '#cba6f7'
 gradient = 1
-gradient_color_1 = '#606060'
-gradient_color_2 = '#7c7c7c'
-gradient_color_3 = '#919191'
-gradient_color_4 = '#a4a4a4'
-gradient_color_5 = '#b8b8b8'
-gradient_color_6 = '#c6c6c6'
-gradient_color_7 = '#d4d4d4'
-gradient_color_8 = '#ebebeb'
+gradient_color_1 = '#89b4fa'
+gradient_color_2 = '#8fb0f9'
+gradient_color_3 = '#a2adf8'
+gradient_color_4 = '#b4befe'
+gradient_color_5 = '#cba6f7'
+gradient_color_6 = '#dbb0f2'
+gradient_color_7 = '#f5c2e7'
+gradient_color_8 = '#f2cdcd'
 horizontal_gradient = 0
 
 [smoothing]

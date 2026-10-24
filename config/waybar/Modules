@@ -146,14 +146,15 @@
     "modules": [
       "tray",
       "pulseaudio",
-      "custom/kb-layout",
+      "hyprland/language",
       "idle_inhibitor"
     ]
   },
-  "custom/kb-layout": {
-    "exec": "~/.config/waybar/scripts/kb-layout.py",
-    "return-type": "json",
-    "restart-interval": 2,
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "EN",
+    "format-ru": "RU",
+    "tooltip-format": "{long}",
     "on-click": "hyprctl switchxkblayout current next"
   },
   "idle_inhibitor": {

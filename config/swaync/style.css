@@ -1,62 +1,63 @@
-/* Fixed palette matching Waybar and Hyprlock. */
+/* Catppuccin Mocha, matching Waybar, Rofi and Kitty. */
 :root {
-  --cc-bg: rgba(24, 24, 24, 0.96);
-  --noti-bg: 32, 32, 32;
+  --cc-bg: rgba(30, 30, 46, 0.96);
+  --noti-bg: 30, 30, 46;
   --noti-bg-alpha: 0.96;
-  --noti-bg-darker: #181818;
-  --noti-bg-hover: #383838;
-  --noti-bg-focus: rgba(212, 212, 212, 0.12);
-  --noti-border-color: rgba(184, 184, 184, 0.45);
-  --noti-close-bg: #303030;
-  --noti-close-bg-hover: #b8b8b8;
-  --text-color: #e2e2e2;
-  --text-color-disabled: #919191;
-  --bg-selected: #d4d4d4;
+  --noti-bg-darker: #181825;
+  --noti-bg-hover: #313244;
+  --noti-bg-focus: rgba(203, 166, 247, 0.12);
+  --noti-border-color: rgba(203, 166, 247, 0.45);
+  --noti-close-bg: #313244;
+  --noti-close-bg-hover: #f38ba8;
+  --text-color: #cdd6f4;
+  --text-color-disabled: #6c7086;
+  --bg-selected: #cba6f7;
   --border-radius: 18px;
   --font-size-body: 13px;
   --font-size-summary: 15px;
   --notification-icon-size: 42px;
 }
 * { font-family: "JetBrainsMono Nerd Font", sans-serif; }
-.control-center { border: 1px solid rgba(212, 212, 212, 0.35); padding: 10px; }
-.notification { border-left: 3px solid #b8b8b8; }
-.notification.critical { border-left-color: #c8c8c8; }
+.control-center { border: 2px solid rgba(203, 166, 247, 0.6); padding: 10px; }
+.notification { border-left: 3px solid #cba6f7; }
+.notification.low { border-left-color: #6c7086; }
+.notification.critical { border-left-color: #f38ba8; }
 .notification-default-action { padding: 12px; }
-.summary { color: #e2e2e2; }
-.body { color: #b8b8b8; }
-.time { color: #919191; font-size: 11px; }
-.widget-title { color: #d4d4d4; font-size: 19px; font-weight: bold; }
-.widget-title > button { background: #303030; color: #e2e2e2; border-radius: 12px; padding: 6px 12px; border: none; }
-.widget-title > button:hover { background: #b8b8b8; color: #181818; }
-.widget-dnd { color: #e2e2e2; }
-.widget-dnd > switch { background: #303030; border: none; border-radius: 16px; }
-.widget-dnd > switch:checked { background: #b8b8b8; }
-.widget-dnd > switch slider { background: #e2e2e2; border-radius: 16px; }
-.close-button { background: #303030; color: #e2e2e2; }
-.close-button:hover { background: #b8b8b8; color: #181818; }
+.summary { color: #cdd6f4; }
+.body { color: #bac2de; }
+.time { color: #7f849c; font-size: 11px; }
+.widget-title { color: #cba6f7; font-size: 19px; font-weight: bold; }
+.widget-title > button { background: #313244; color: #cdd6f4; border-radius: 12px; padding: 6px 12px; border: none; }
+.widget-title > button:hover { background: #f38ba8; color: #11111b; }
+.widget-dnd { color: #cdd6f4; }
+.widget-dnd > switch { background: #313244; border: none; border-radius: 16px; }
+.widget-dnd > switch:checked { background: #cba6f7; }
+.widget-dnd > switch slider { background: #cdd6f4; border-radius: 16px; }
+.close-button { background: #313244; color: #cdd6f4; }
+.close-button:hover { background: #f38ba8; color: #11111b; }
 
 /* Native MPRIS card: album art and previous/play/next controls. */
 :root {
-  --mpris-album-art-overlay: rgba(24, 24, 24, 0.88);
-  --mpris-button-hover: #383838;
+  --mpris-album-art-overlay: rgba(17, 17, 27, 0.85);
+  --mpris-button-hover: #45475a;
   --mpris-album-art-icon-size: 88px;
 }
 .widget-mpris { padding: 0; margin: 8px 0; }
 .widget-mpris .widget-mpris-player {
   margin: 0;
-  border: 1px solid rgba(184, 184, 184, 0.35);
+  border: 1px solid rgba(180, 190, 254, 0.35);
   border-radius: 12px;
-  color: #e2e2e2;
+  color: #cdd6f4;
 }
 .widget-mpris .widget-mpris-player .mpris-overlay { padding: 12px; }
 .widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-album-art { border-radius: 8px; }
 .widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-title { font-size: 14px; }
-.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-subtitle { font-size: 12px; color: #b8b8b8; }
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-subtitle { font-size: 12px; color: #f5c2e7; }
 .widget-mpris .widget-mpris-player .mpris-overlay > box > button {
   min-width: 32px;
   min-height: 32px;
   padding: 2px;
   border-radius: 8px;
-  color: #e2e2e2;
+  color: #cdd6f4;
   -gtk-icon-size: 18px;
 }

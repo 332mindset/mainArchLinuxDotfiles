@@ -30,7 +30,8 @@ ASSETS = ROOT / 'assets/hyprlock/dashboard'
 RUNTIME = Path(os.environ.get('XDG_CACHE_HOME', HOME / '.cache')) / 'hyprlock-dashboard'
 FONT = 'JetBrainsMono Nerd Font'
 W, H = 1240, 306
-FG, MUTED, ACCENT = '#eeeef2', '#b4b7c1', '#d6ad93'
+# Catppuccin Mocha: text, subtext0, mauve
+FG, MUTED, ACCENT = '#cdd6f4', '#a6adc8', '#cba6f7'
 PANELS = [(0,0,314,H),(332,0,294,H),(644,0,288,H),(950,0,290,96),(950,114,290,192)]
 NOTIFICATIONS = []
 ICONS = {
@@ -88,7 +89,7 @@ def text(x, y, value, size=12, color=FG, anchor='start'):
     return f'<text x="{x}" y="{y}" font-size="{size}" fill="{color}" text-anchor="{anchor}">{html.escape(str(value))}</text>'
 
 
-def rect(x, y, w, h, fill='#191714', opacity=.67, radius=8):
+def rect(x, y, w, h, fill='#1e1e2e', opacity=.67, radius=8):
     return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{fill}" fill-opacity="{opacity}"/>'
 
 
@@ -109,7 +110,7 @@ def russian_date():
 
 
 def glass(x,y,w,h):
-    return (rect(x,y,w,h,'#151922',.36,14)+
+    return (rect(x,y,w,h,'#1e1e2e',.45,14)+
             f'<rect x="{x+.5}" y="{y+.5}" width="{w-1}" height="{h-1}" rx="14" fill="none" stroke="#ffffff" stroke-opacity=".10"/>')
 
 
@@ -238,7 +239,7 @@ def board(state, panels=True):
     music, stats, graphics = state['music'],state['system'],state['gpu']
     s = ''.join(glass(*p) for p in PANELS) if panels else ''
     s += text(20,28,'Сейчас играет',11,MUTED) + icon('music',275,14,18,ACCENT)
-    s += rect(20,49,84,84,'#39332d',.75,8)
+    s += rect(20,49,84,84,'#313244',.75,8)
     if state.get('art'):
         s += f'<defs><clipPath id="cover"><rect x="20" y="49" width="84" height="84" rx="8"/></clipPath></defs><image x="20" y="49" width="84" height="84" preserveAspectRatio="xMidYMid slice" clip-path="url(#cover)" xlink:href="{state["art"]}"/>'
     else:
@@ -273,7 +274,7 @@ def board(state, panels=True):
             today = (year,month,day)==(now.year,now.month,now.day)
             if today:
                 s += f'<circle cx="{x}" cy="{y-4}" r="13" fill="{ACCENT}"/>'
-            s += text(x,y,day,11,'#171a21' if today else FG,'middle')
+            s += text(x,y,day,11,'#11111b' if today else FG,'middle')
     s += text(664,28,'Система',11,MUTED)
     s += ring(708,79,stats['cpu'],'CPU')+ring(788,79,stats['mem'],'RAM')+ring(868,79,graphics['load'],'GPU')
     s += rect(664,148,120,65,'#ffffff',.055,7)+rect(792,148,120,65,'#ffffff',.055,7)
@@ -387,19 +388,19 @@ def layout(outputs, destination):
     config += widget('general',dict(hide_cursor='false',ignore_empty_input='true'))
     config += 'animations {\n    enabled = true\n    bezier = smooth, 0.16, 1, 0.3, 1\n    animation = fadeIn, 1, 4, smooth\n    animation = fadeOut, 1, 3, smooth\n}\n\n'
     # Keep wallpaper underneath as a fallback if compositor screencopy is unavailable.
-    background=dict(monitor='',color='rgba(10131bff)',blur_passes=4,blur_size=10,brightness=.75,contrast=.90,noise=.006,vibrancy=.06)
+    background=dict(monitor='',color='rgba(11111bff)',blur_passes=4,blur_size=10,brightness=.75,contrast=.90,noise=.006,vibrancy=.06)
     config += widget('background',dict(background,path=str(wallpaper()),zindex=-4))
     config += widget('background',dict(background,path='screenshot',color='rgba(00000000)',zindex=-3))
-    config += widget('shape',dict(monitor='',size='100%, 100%',position='0, 0',halign='center',valign='center',rounding=0,color='rgba(080b1259)',zindex=-2))
+    config += widget('shape',dict(monitor='',size='100%, 100%',position='0, 0',halign='center',valign='center',rounding=0,color='rgba(11111b59)',zindex=-2))
     helper = '~/.config/hypr/scripts/lock-dashboard.py'
     for name,width,height in outputs:
         scale=min((width-96)/W,height/840,1.4)
         n=lambda value:round(value*scale)
         common=dict(monitor=name,halign='center',valign='center')
-        config += widget('label',dict(common,text='$TIME',font_family=FONT+' Light',font_size=n(90),color='rgba(e4e0dcff)',position=f'0, {n(295)}',zindex=2))
-        config += widget('label',dict(common,text=f'cmd[update:60000] {helper} --date',font_family=FONT,font_size=n(14),color='rgba(b4b7c1ff)',position=f'0, {n(220)}',zindex=2))
+        config += widget('label',dict(common,text='$TIME',font_family=FONT+' Light',font_size=n(90),color='rgba(cdd6f4ff)',position=f'0, {n(295)}',zindex=2))
+        config += widget('label',dict(common,text=f'cmd[update:60000] {helper} --date',font_family=FONT,font_size=n(14),color='rgba(a6adc8ff)',position=f'0, {n(220)}',zindex=2))
         for x,y,w,h in PANELS:
-            config += widget('shape',dict(common,size=f'{n(w)}, {n(h)}',position=f'{n(x+w/2-W/2)}, {n(H/2-y-h/2-26)}',color='rgba(1519225c)',rounding=n(14),border_size=1,border_color='rgba(ffffff19)',zindex=0))
+            config += widget('shape',dict(common,size=f'{n(w)}, {n(h)}',position=f'{n(x+w/2-W/2)}, {n(H/2-y-h/2-26)}',color='rgba(1e1e2e73)',rounding=n(14),border_size=1,border_color='rgba(ffffff19)',zindex=0))
         config += widget('image',dict(common,path=str(ASSETS/'cards.png'),size=n(H),rounding=0,border_size=0,reload_time=1,position=f'0, {n(-26)}',zindex=1))
         # Coordinates share the SVG's center and scale, so clicks follow each monitor.
         def target(x,y,w,h,action):
@@ -411,15 +412,15 @@ def layout(outputs, destination):
         config += target(982,60,30,32,'mute')+target(1010,82,28,20,'volume-down')+target(1178,82,28,20,'volume-up')
         for i in range(11):
             config += target(1006+(i+.5)*178/11,60,178/11-1,18,f'volume-set-{i*10}')
-        config += widget('input-field',dict(common,size=f'{n(290)}, {n(46)}',position=f'0, {n(-245)}',outline_thickness=1,outer_color='rgba(ffffff26)',inner_color='rgba(1519225c)',font_color='rgba(eeeef2ff)',check_color='rgba(d6ad93ff)',fail_color='rgba(d68a8aff)',capslock_color='rgba(d6ad93ff)',font_family=FONT,font_size=n(12),placeholder_text='Пароль',check_text='Проверка…',fail_text='Неверный пароль',fade_on_empty='false',rounding=n(14),dots_size=.17,dots_spacing=.3,dots_center='true',zindex=3))
-        config += widget('label',dict(common,text='$LAYOUT[EN,RU]',font_family=FONT,font_size=n(9),color='rgba(99928bff)',position=f'0, {n(-283)}',zindex=2))
+        config += widget('input-field',dict(common,size=f'{n(290)}, {n(46)}',position=f'0, {n(-245)}',outline_thickness=1,outer_color='rgba(ffffff26)',inner_color='rgba(1e1e2e73)',font_color='rgba(cdd6f4ff)',check_color='rgba(cba6f7ff)',fail_color='rgba(f38ba8ff)',capslock_color='rgba(f9e2afff)',font_family=FONT,font_size=n(12),placeholder_text='Пароль',check_text='Проверка…',fail_text='Неверный пароль',fade_on_empty='false',rounding=n(14),dots_size=.17,dots_spacing=.3,dots_center='true',zindex=3))
+        config += widget('label',dict(common,text='$LAYOUT[EN,RU]',font_family=FONT,font_size=n(9),color='rgba(7f849cff)',position=f'0, {n(-283)}',zindex=2))
         config += widget('image',dict(common,path=str(ASSETS/'dock.png'),size=n(56),rounding=0,border_size=0,position=f'0, {n(-336)}',zindex=3))
         for i,action in enumerate([None,'logout','reboot','poweroff']):
             x=n(-105+i*70)
-            config += widget('shape',dict(common,size=f'{n(56)}, {n(56)}',position=f'{x}, {n(-336)}',color='rgba(1519225c)',rounding=n(17),border_size=1,border_color='rgba(ffffff19)',zindex=1))
+            config += widget('shape',dict(common,size=f'{n(56)}, {n(56)}',position=f'{x}, {n(-336)}',color='rgba(1e1e2e73)',rounding=n(17),border_size=1,border_color='rgba(ffffff19)',zindex=1))
             if action:
                 config += widget('shape',dict(common,size=f'{n(56)}, {n(56)}',position=f'{x}, {n(-336)}',color='rgba(00000000)',rounding=n(17),zindex=4,onclick=f'{helper} --action {action}'))
-        config += widget('label',dict(common,text=f'cmd[update:1000] cat {RUNTIME}/hint',font_family=FONT,font_size=n(9),color='rgba(99928bff)',position=f'0, {n(-386)}',zindex=2))
+        config += widget('label',dict(common,text=f'cmd[update:1000] cat {RUNTIME}/hint',font_family=FONT,font_size=n(9),color='rgba(7f849cff)',position=f'0, {n(-386)}',zindex=2))
     atomic_text(destination,config)
 
 
@@ -540,7 +541,7 @@ def preview(path,width,height):
     scale=min((width-96)/W,height/840,1.4)
     body=('<defs><filter id="blur"><feGaussianBlur stdDeviation="26"/></filter></defs>'
           f'<image x="-40" y="-40" width="{width+80}" height="{height+80}" preserveAspectRatio="xMidYMid slice" filter="url(#blur)" xlink:href="{image_uri(wallpaper())}"/>'
-          +rect(0,0,width,height,'#080b12',.51,0))
+          +rect(0,0,width,height,'#11111b',.51,0))
     x,y=(width-W*scale)/2,height/2-H*scale/2+26*scale
     inner=board(state).split(f'<g font-family="{FONT}" fill="{FG}">',1)[1].rsplit('</g></svg>',1)[0]
     body += f'<g transform="translate({x} {y}) scale({scale})">{inner}</g>'

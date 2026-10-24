@@ -22,12 +22,13 @@ configuration {
 /*****----- Global Properties -----*****/
 * {
     font:                        "JetBrainsMono Nerd Font 10";
-    background:                  #1E2127FF;
-    background-alt:              #282B31FF;
-    foreground:                  #FFFFFFFF;
-    selected:                    #61AFEFFF;
-    active:                      #98C379FF;
-    urgent:                      #E06C75FF;
+    /* Catppuccin Mocha */
+    background:                  #1E1E2EF2;
+    background-alt:              #313244FF;
+    foreground:                  #CDD6F4FF;
+    selected:                    #CBA6F7FF;
+    active:                      #A6E3A1FF;
+    urgent:                      #F38BA8FF;
 }
 
 * {
@@ -71,8 +72,8 @@ window {
     enabled:                     true;
     margin:                      0px;
     padding:                     0px;
-    border:                      0px solid;
-    border-radius:               10px;
+    border:                      2px solid;
+    border-radius:               12px;
     border-color:                @border-colour;
     cursor:                      "default";
     /* Backgroud Colors */

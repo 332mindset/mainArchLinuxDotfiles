@@ -103,8 +103,9 @@ hl.config({
         border_size = 3,
 
         col = {
-            active_border   = "rgba(606060ee)",
-            inactive_border = "rgba(202020aa)",
+            -- Catppuccin Mocha: mauve -> blue, slowly rotating (see borderangle below)
+            active_border   = { colors = { "rgba(cba6f7ee)", "rgba(89b4faee)" }, angle = 45 },
+            inactive_border = "rgba(313244aa)",
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -128,7 +129,7 @@ hl.config({
             enabled      = true,
             range        = 14,
             render_power = 2,
-            color        = 0x66000000,
+            color        = 0x7711111b,
         },
 
         blur = {
@@ -145,44 +146,43 @@ hl.config({
     },
 })
 
--- Smooth motion: soft window entrance, relaxed workspace slides.
+-- Snappy motion: windows pop in with a small overshoot, close quickly and
+-- workspaces slide as a whole. Speed is in deciseconds: lower is faster.
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
-hl.curve("smoothOut", { type = "bezier", points = { {0.16, 1}, {0.30, 1} } })
-hl.curve("smoothIn", { type = "bezier", points = { {0.40, 0}, {0.85, 0.35} } })
--- Gentle acceleration and a long, smooth stop without a spring impulse.
-hl.curve("workspaceFlow", { type = "bezier", points = { {0.42, 0}, {0.25, 1} } })
--- Ease out for workspace switching: a smooth stop without overshoot.
-hl.curve("workspaceEaseOut", { type = "bezier", points = { {0.22, 1}, {0.36, 1} } })
-hl.curve("softFade", { type = "bezier", points = { {0.25, 0.10}, {0.25, 1} } })
-hl.curve("softSpring", { type = "spring", mass = 1, stiffness = 190, dampening = 25 })
+hl.curve("overshot", { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.08} } })
+hl.curve("easeOutQuint", { type = "bezier", points = { {0.23, 1}, {0.32, 1} } })
+hl.curve("easeInCubic", { type = "bezier", points = { {0.32, 0}, {0.67, 0} } })
+hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
+hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
 
-hl.animation({ leaf = "global", enabled = true, speed = 5, bezier = "smoothOut" })
-hl.animation({ leaf = "windows", enabled = true, speed = 5, bezier = "smoothOut" })
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 5, spring = "softSpring", style = "popin 88%" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 3, bezier = "smoothIn", style = "popin 94%" })
-hl.animation({ leaf = "windowsMove", enabled = true, speed = 4.5, bezier = "smoothOut" })
-hl.animation({ leaf = "fade", enabled = true, speed = 3.5, bezier = "softFade" })
-hl.animation({ leaf = "fadeIn", enabled = true, speed = 3.5, bezier = "softFade" })
-hl.animation({ leaf = "fadeOut", enabled = true, speed = 2.8, bezier = "softFade" })
-hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 3, bezier = "softFade" })
-hl.animation({ leaf = "fadeShadow", enabled = true, speed = 4, bezier = "softFade" })
-hl.animation({ leaf = "fadeDim", enabled = true, speed = 4, bezier = "softFade" })
-hl.animation({ leaf = "border", enabled = true, speed = 4, bezier = "softFade" })
-hl.animation({ leaf = "layers", enabled = true, speed = 4, bezier = "smoothOut" })
-hl.animation({ leaf = "layersIn", enabled = true, speed = 4, bezier = "smoothOut", style = "slide" })
-hl.animation({ leaf = "layersOut", enabled = true, speed = 3, bezier = "smoothIn", style = "slide" })
-hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 3, bezier = "softFade" })
-hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 2.5, bezier = "softFade" })
-hl.animation({ leaf = "fadePopupsIn", enabled = true, speed = 2.5, bezier = "smoothOut" })
-hl.animation({ leaf = "fadePopupsOut", enabled = true, speed = 2, bezier = "softFade" })
--- A 30% slide with fading over 450 ms (speed is measured in deciseconds).
-hl.animation({ leaf = "workspaces", enabled = true, speed = 4.5, bezier = "workspaceEaseOut", style = "slidefade 30%" })
-hl.animation({ leaf = "workspacesIn", enabled = true, speed = 4.5, bezier = "workspaceEaseOut", style = "slidefade 30%" })
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 4.5, bezier = "workspaceEaseOut", style = "slidefade 30%" })
-hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 6.5, bezier = "workspaceFlow", style = "slidefadevert 18%" })
-hl.animation({ leaf = "specialWorkspaceIn", enabled = true, speed = 6.5, bezier = "workspaceFlow", style = "slidefadevert 18%" })
-hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 6.5, bezier = "workspaceFlow", style = "slidefadevert 18%" })
-hl.animation({ leaf = "zoomFactor", enabled = true, speed = 5, bezier = "smoothOut" })
+hl.animation({ leaf = "global", enabled = true, speed = 4, bezier = "easeOutQuint" })
+-- Open: grow from 80% with a light bounce.
+hl.animation({ leaf = "windows", enabled = true, speed = 4, bezier = "overshot" })
+hl.animation({ leaf = "windowsIn", enabled = true, speed = 4, bezier = "overshot", style = "popin 80%" })
+-- Close: shrink and fade out fast, no lingering.
+hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.6, bezier = "easeInCubic", style = "popin 88%" })
+hl.animation({ leaf = "windowsMove", enabled = true, speed = 3.5, bezier = "overshot" })
+hl.animation({ leaf = "fade", enabled = true, speed = 3, bezier = "quick" })
+hl.animation({ leaf = "fadeIn", enabled = true, speed = 2.5, bezier = "quick" })
+hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.6, bezier = "easeInCubic" })
+hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 3, bezier = "quick" })
+hl.animation({ leaf = "fadeShadow", enabled = true, speed = 3, bezier = "quick" })
+hl.animation({ leaf = "fadeDim", enabled = true, speed = 3, bezier = "quick" })
+hl.animation({ leaf = "border", enabled = true, speed = 4, bezier = "quick" })
+hl.animation({ leaf = "borderangle", enabled = true, speed = 80, bezier = "linear", style = "loop" })
+hl.animation({ leaf = "layers", enabled = true, speed = 3.5, bezier = "easeOutQuint" })
+hl.animation({ leaf = "layersIn", enabled = true, speed = 3.5, bezier = "easeOutQuint", style = "popin 90%" })
+hl.animation({ leaf = "layersOut", enabled = true, speed = 1.6, bezier = "easeInCubic", style = "popin 90%" })
+hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 2.5, bezier = "quick" })
+hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.6, bezier = "easeInCubic" })
+hl.animation({ leaf = "fadePopupsIn", enabled = true, speed = 2, bezier = "quick" })
+hl.animation({ leaf = "fadePopupsOut", enabled = true, speed = 1.5, bezier = "easeInCubic" })
+-- Workspaces: a physical slide. The spring starts gently, glides and settles
+-- with a tiny bounce; the 92% fade-in softens the edges of the incoming desktop.
+hl.curve("workspaceSpring", { type = "spring", mass = 1, stiffness = 120, dampening = 17 })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 5, spring = "workspaceSpring", style = "slidefade 92%" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 3.5, bezier = "easeOutQuint", style = "slidevert" })
+hl.animation({ leaf = "zoomFactor", enabled = true, speed = 4, bezier = "easeOutQuint" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 -- "Smart gaps" / "No gaps when only"

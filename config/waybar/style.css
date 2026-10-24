@@ -1,278 +1,210 @@
-/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-/*DARK_PURPLE*/
+/* Catppuccin Mocha. Layout originally based on https://github.com/JaKooLit */
+@import "catppuccin-mocha.css";
 
-
-@import "hyprlust-static-colors.css";
-
-@define-color main-color @color15;
 * {
-  all: unset; /*this is really important to isolate waybar from gtk*/
-  font: bold 14px "JetBrainsMono Nerd Font Propo" ;
-   font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
-  border: none;
-  
-  border-radius: 0;
-  box-shadow: none;
-  text-shadow: none;
+  all: unset; /* isolate Waybar from the GTK theme */
+  font: bold 14px "JetBrainsMono Nerd Font Propo";
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
 }
-
 
 window#waybar {
-
-  /*background: alpha(@background, 0.1);*/
-      background: rgba (0, 0, 0, 0.6);
-  border-radius: 12px;
-  /*border: 0px solid alpha(@background,0.8);*/
-}
-
-#window {
-  padding: 0px 8px;
-  margin: 5px 4px 5px 4px;
-  background: alpha(@color12, 0.3);
-  border-radius: 5px;
-  color: lighter(@main-color);
+  background: alpha(@crust, 0.82);
+  border: 1px solid alpha(@surface1, 0.6);
+  border-radius: 14px;
+  color: @text;
 }
 
 tooltip {
-  background: alpha(@background, 0.8);
-  border: 2px solid alpha(lighter(@main-color), 0.8);
+  background: alpha(@base, 0.96);
+  border: 1px solid alpha(@mauve, 0.6);
   border-radius: 10px;
 }
 
 tooltip label {
-  color: @foreground;
+  color: @text;
+  padding: 2px 4px;
 }
 
-/* Tray menus also inherit the universal reset above: restore their styling. */
+/* ---- Shared pill look ---------------------------------------------------- */
+
+#custom-menu,
+#window,
+#cpu,
+#memory,
+#disk,
+#workspaces,
+#mpris,
+#demo,
+#custom-notifications,
+#clock,
+#custom-power {
+  margin: 5px 3px;
+  padding: 0 10px;
+  border-radius: 9px;
+  background: alpha(@surface0, 0.7);
+  color: @text;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover: a lifted surface with an accent tint. */
+#custom-menu:hover,
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#mpris:hover,
+#custom-notifications:hover,
+#clock:hover {
+  background: alpha(@surface1, 0.9);
+  color: @lavender;
+  box-shadow: inset 0 -2px alpha(@mauve, 0.8);
+}
+
+/* ---- Left ---------------------------------------------------------------- */
+
+#custom-menu {
+  margin-left: 6px;
+  padding: 0 12px 0 10px;
+  color: @mauve;
+  font-size: 16px;
+}
+#custom-menu:hover {
+  background: @mauve;
+  color: @crust;
+  box-shadow: none;
+}
+
+#window { color: @subtext1; }
+window#waybar.empty #window { background: transparent; color: @overlay0; }
+
+#custom-arrow-right {
+  margin: 0 4px;
+  color: @overlay1;
+  transition: color 0.25s ease;
+}
+#custom-arrow-right:hover { color: @mauve; }
+
+#cpu    { color: @blue; }
+#memory { color: @green; }
+#disk   { color: @peach; }
+
+/* ---- Workspaces ---------------------------------------------------------- */
+
+#workspaces {
+  padding: 1px 3px;
+  background: alpha(@mantle, 0.9);
+  border: 1px solid alpha(@surface0, 0.9);
+}
+
+#workspaces button {
+  /* Same size in every state: only colors change, so the bar never relayouts. */
+  min-width: 20px;
+  margin: 0 1px;
+  padding: 0 6px;
+  border-radius: 7px;
+  color: @subtext0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Free desktops fade back; occupied ones stay readable. */
+#workspaces button.empty { color: @surface2; }
+
+#workspaces button:hover {
+  background-color: alpha(@surface1, 0.9);
+  color: @lavender;
+}
+
+#workspaces button.active {
+  color: @crust;
+  background-color: @mauve;
+}
+
+#workspaces button.urgent {
+  color: @crust;
+  background-color: @red;
+}
+
+/* ---- Right --------------------------------------------------------------- */
+
+#mpris { color: @pink; }
+#mpris.paused { color: @overlay1; }
+
+#demo { padding: 0 4px; }
+
+#tray { padding: 0 6px; }
+#tray > .needs-attention { -gtk-icon-effect: highlight; }
+
+#pulseaudio,
+#language,
+#idle_inhibitor {
+  margin: 3px 1px;
+  padding: 0 7px;
+  border-radius: 7px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+#pulseaudio:hover,
+#language:hover,
+#idle_inhibitor:hover {
+  background: alpha(@surface1, 0.9);
+}
+
+#pulseaudio { color: @sapphire; }
+#pulseaudio.muted { color: @overlay0; }
+#language { color: @lavender; min-width: 22px; }
+#idle_inhibitor { color: @overlay1; }
+#idle_inhibitor.activated { color: @yellow; }
+
+#custom-notifications { color: @mauve; }
+#custom-notifications.notification,
+#custom-notifications.dnd-notification { color: @peach; }
+
+#clock { color: @lavender; }
+
+#custom-power {
+  margin-right: 6px;
+  color: @red;
+}
+#custom-power:hover {
+  background-color: @red;
+  color: @crust;
+}
+
+/* ---- Tray menus (they inherit the reset above) --------------------------- */
+
 menu {
-  background-color: #181818;
-  color: #e6e6e6;
-  border: 1px solid #404040;
+  background: @base;
+  color: @text;
+  border: 1px solid @surface1;
   border-radius: 8px;
   padding: 6px;
 }
-
 menu menuitem {
   min-height: 24px;
   padding: 6px 12px;
-  border-radius: 4px;
-  color: #e6e6e6;
+  border-radius: 5px;
 }
-
 menu menuitem label {
   font-family: "Adwaita Sans", sans-serif;
   font-size: 13px;
   font-weight: normal;
   color: inherit;
 }
-
 menu menuitem:hover {
-  background-color: #404040;
-  color: #e2e2e2;
+  background: @surface0;
+  color: @lavender;
 }
-
-menu menuitem:disabled {
-  color: #757575;
-}
-
+menu menuitem:disabled { color: @overlay0; }
 menu separator {
-  background-color: #404040;
+  background: @surface1;
   min-height: 1px;
   margin: 4px 8px;
 }
-
 menu check,
 menu radio {
   min-width: 14px;
   min-height: 14px;
   margin-right: 8px;
-  border: 1px solid #757575;
+  border: 1px solid @overlay0;
+  border-radius: 3px;
 }
-
 menu check:checked,
-menu radio:checked {
-  background-color: #dedede;
-}
-
-#custom-arrow-right {
-  color: @main-color;
-  margin: 0px 4px;
-}
-
-#cpu,
-#memory,
-#temperature,
-#disk,
-#custom-updates {
-  padding: 0px 6px;
-  margin: 5px 4px;
-  background: alpha(darker(@main-color), 0.4);
-  color: @main-color;
-  border-radius: 10px;
-}
-
-#workspaces {
-  margin: 5px 4px;
-  background: alpha(lighter(@color4), 0.09);
-  border-radius: 5px;
-}
-
-#workspaces button {
-  padding: 0px 4px;
-  margin: 0px 0px;
-  color: alpha(@foreground, 0.3);
-}
-
-#workspaces button.active {
-  transition: color 0.5s;
-  color: lighter(@main-color);
-
-}
-
-
-#workspaces button.urgent,
-#workspaces button:hover {
-  color: @color12;
-  background-color: transparent;
-}
-#demo,
-#control-center {
-  padding: 0px 6px;
-  margin: 5px 2px 5px 2px ;
-  color: lighter(@color3);
-  background: alpha(lighter(@main-color),0.08);
-  border-radius: 5px;
-}
-
-#bluetooth,
-#network,
-#pulseaudio {
-  padding: 0px 0 0 4px;
-}
-
-#pulseaudio-slider slider {
-  min-height: 0px;
-  min-width: 0px;
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-}
-
-#pulseaudio-slider {
-  margin: 6px;
-}
-
-#pulseaudio-slider highlight {
-  border-radius: 8px;
-  background-color: lighter(@main-color);
-}
-
-#language {
-  padding: 0px 3px 2px 0px;
-}
-
-#custom-arrow-left {
-  color: lighter(@main-color);
-  margin: 0px 4px;
-}
-
-#custom-notifications,
-#custom-weather,
-#custom-theme-switcher {
-  padding: 0px 8px;
-  margin: 8px 4px;
-  color: @main-color;
-  background: alpha(darker(@main-color), 0.8);
-  border-radius: 10px;
-}
-#tray {
-  padding: 0px 8px;
-  margin: 0px 2px;
-  background: alpha(@color12,0.3);
-  border-radius: 5px;
-  color: lighter(@main-color);
-}
-
-#custom-menu,
-#custom-power {
-  padding: 0px 8px;
-  margin: 5px 6px 5px 4px;
-  background: alpha(@color12,0.3);
-  border-radius: 5px;
-  color: lighter(@main-color);
-}
-
-
-#clock {
-  padding: 0px 8px;
-  margin: 5px 2px 5px 4px;
-  background: alpha(@color12,0.3);
-  border-radius: 5px;
-  color: lighter(@main-color);
-}
-
-#power,
-#bluetooth,
-
-
-#mpd,
-#pulseaudio,
-
-#battery {
- padding: 4px 4px;
-  color: lighter(@main-color);
-}
-
-#mpris {
-  padding: 0 8px;
-  margin: 5px 4px;
-  background: alpha(@color12, 0.3);
-  border-radius: 5px;
-  color: lighter(@main-color);
-}
-
-#mpris.paused {
-  color: alpha(@main-color, 0.65);
-}
-
-#workspaces button { min-width: 22px; }
-
-#custom-cava {
-  font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 16px;
-  font-weight: normal;
-  padding: 0 8px;
-  margin: 5px 4px;
-  border-radius: 5px;
-  color: lighter(@color12);
-  background: alpha(@color12, 0.3);
-}
-
-#custom-cava:hover {
-  background: alpha(@color12, 0.45);
-}
-
-#custom-mute { padding: 0 8px; margin: 4px 2px; border-radius: 5px; color: @main-color; }
-#custom-mute:hover { background: alpha(@color12, 0.3); }
-#custom-mute.muted { color: #c8c8c8; background: rgba(200, 200, 200, 0.12); }
-#custom-mute.unavailable { color: #919191; }
-#custom-notifications { margin: 5px 2px; padding: 0 8px; border-radius: 5px; background: alpha(@color12, 0.3); }
-
-#custom-power {
-  padding: 0 10px;
-  color: #dedede;
-  background: rgba(184, 184, 184, 0.18);
-  border-radius: 8px;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-#custom-power:hover {
-  color: #181818;
-  background: #b8b8b8;
-}
-
-#custom-kb-layout,
-#idle_inhibitor {
-  padding: 0 6px;
-  color: lighter(@main-color);
-}
-#idle_inhibitor.activated { color: @color12; }
+menu radio:checked { background: @mauve; }
