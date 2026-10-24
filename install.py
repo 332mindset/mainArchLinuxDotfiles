@@ -119,7 +119,7 @@ def main():
                 shutil.move(str(backup / relative), str(destination))
         raise
     print(f"\nInstalled. Previous files: {backup}")
-    print("Your .bashrc and login configuration were not changed. See README.md for shell setup.")
+    print("Your .zshrc and login configuration were not changed. See README.md for shell setup.")
     print("Check your monitor settings, then log out and start Hyprland again when ready.")
 
 

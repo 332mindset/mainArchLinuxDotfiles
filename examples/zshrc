@@ -1,0 +1,28 @@
+export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
+
+# oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME=""  # custom theme is sourced below
+plugins=(git sudo zsh-autosuggestions zsh-syntax-highlighting)
+
+# Syntax highlighting colors must be set before the plugin loads
+source "$ZSH/custom/catppuccin-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#6c7086'
+
+source "$ZSH/oh-my-zsh.sh"
+source ~/.config/zsh/catppuccin.zsh-theme
+
+# Fastfetch card once per terminal window (skipped over SSH and outside a graphical session)
+if [[ -o interactive && $TTY != $FASTFETCH_SHOWN_TTY && -z $SSH_CONNECTION && -n $WAYLAND_DISPLAY$DISPLAY ]] && (( $+commands[fastfetch] )); then
+    export FASTFETCH_SHOWN_TTY=$TTY
+    # Random image from the logos folder
+    logos=(~/.config/fastfetch/logos/*.png(N))
+    print
+    if (( $#logos )); then
+        fastfetch --logo "${logos[RANDOM % $#logos + 1]}"
+    else
+        fastfetch
+    fi
+    print
+    unset logos
+fi

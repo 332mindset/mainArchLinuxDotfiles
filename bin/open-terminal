@@ -1,7 +1,7 @@
 #!/bin/sh
 # Open the configured terminal.
-if command -v foot >/dev/null 2>&1; then
-    exec foot "$@"
+if command -v kitty >/dev/null 2>&1; then
+    exec kitty "$@"
 fi
-printf 'foot is not installed. Run: sudo pacman -Syu --needed foot\n' >&2
+printf 'kitty is not installed. Run: sudo pacman -Syu --needed kitty\n' >&2
 exit 127
