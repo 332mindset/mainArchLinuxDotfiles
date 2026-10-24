@@ -12,15 +12,29 @@ if [[ "${1:-}" == upgrade ]]; then
     terminal="$HOME/.local/bin/open-terminal"
     [[ -x "$terminal" ]] || terminal="kitty"
     upgrade="${aur_helper:+$aur_helper -Syu}"
-    "$terminal" sh -c "${upgrade:-sudo pacman -Syu}; pkill -RTMIN+8 waybar; printf '\nDone. Press Enter to close.'; read -r _"
+    "$terminal" sh -c "${upgrade:-sudo pacman -Syu}; rm -f '${XDG_RUNTIME_DIR:-/tmp}/waybar-updates.repo'; pkill -RTMIN+8 waybar; printf '\nDone. Press Enter to close.'; read -r _"
     exit 0
 fi
 
 command -v checkupdates >/dev/null || exit 0
 
-repo="$(checkupdates 2>/dev/null)"
-aur=""
-[[ -n "$aur_helper" ]] && aur="$("$aur_helper" -Qua 2>/dev/null)"
+# Every monitor runs its own Waybar module, and parallel checkupdates runs
+# break each other on the shared temporary database. Let one instance check
+# and the others reuse its result.
+cache="${XDG_RUNTIME_DIR:-/tmp}/waybar-updates"
+exec 9>"$cache.lock"
+flock 9
+if [[ -f "$cache.repo" && $(( $(date +%s) - $(stat -c %Y "$cache.repo") )) -lt 60 ]]; then
+    repo="$(<"$cache.repo")"
+    aur="$(<"$cache.aur")"
+else
+    repo="$(checkupdates 2>/dev/null)"
+    aur=""
+    [[ -n "$aur_helper" ]] && aur="$("$aur_helper" -Qua 2>/dev/null)"
+    printf '%s' "$repo" > "$cache.repo"
+    printf '%s' "$aur" > "$cache.aur"
+fi
+exec 9>&-
 
 count() { [[ -n "$1" ]] && printf '%s\n' "$1" | wc -l || echo 0; }
 repo_count=$(count "$repo")
