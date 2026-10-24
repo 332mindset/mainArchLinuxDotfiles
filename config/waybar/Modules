@@ -5,28 +5,6 @@
     "format-alt": " {:%H:%M   %d.%m.%Y}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>"
   },
-  "custom/separator#blank": {
-    "format": " ",
-    "tooltip": false
-  },
-  "network": {
-    "format-ethernet": "󰌘",
-    "format-wifi": "󰤨",
-    "format-disconnected": "󰌙",
-    "tooltip-format": "{ifname}: {ipaddr}\n↑ {bandwidthUpBits} ↓ {bandwidthDownBits}"
-  },
-  "group/audio": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 500,
-      "children-class": "pulseaudio",
-      "transition-left-to-right": true
-    },
-    "modules": [
-      "pulseaudio",
-      "pulseaudio#microphone"
-    ]
-  },
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "format-muted": "󰖁",
@@ -44,16 +22,6 @@
     "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
     "tooltip-format": "{desc} | {volume}%"
-  },
-  "pulseaudio#microphone": {
-    "format": "{format_source}",
-    "format-source": " {volume}%",
-    "format-source-muted": "",
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
-    "on-click-right": "pavucontrol -t 4",
-    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
-    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
-    "tooltip-format": "{source_desc} | {source_volume}%"
   },
   "tray": {
     "icon-size": 16,
@@ -74,19 +42,6 @@
     "path": "/",
     "interval": 30,
     "tooltip-format": "{used} / {total}"
-  },
-  "group/desktop": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 500,
-      "children-class": "desktop-detail",
-      "transition-left-to-right": true
-    },
-    "modules": [
-      "cpu",
-      "memory",
-      "disk"
-    ]
   },
   "hyprland/workspaces#letters": {
     "disable-scroll": true,
@@ -163,13 +118,16 @@
       "activated": "󰅶",
       "deactivated": "󰾪"
     },
-    "tooltip-format-activated": "Экран не гаснет",
-    "tooltip-format-deactivated": "Обычный режим простоя"
+    "tooltip-format-activated": "Idle inhibitor on: the screen stays awake",
+    "tooltip-format-deactivated": "Idle inhibitor off"
   },
   "mpris": {
     "format": "{player_icon} {dynamic}",
     "format-paused": "{status_icon} {dynamic}",
-    "dynamic-order": ["artist", "title"],
+    "dynamic-order": [
+      "artist",
+      "title"
+    ],
     "dynamic-separator": " — ",
     "max-length": 42,
     "player-icons": {
@@ -203,21 +161,24 @@
   "group/hub": {
     "orientation": "inherit",
     "modules": [
+      "custom/updates",
       "custom/notifications",
       "clock"
     ]
+  },
+  "custom/updates": {
+    "exec": "~/.config/waybar/scripts/updates.sh",
+    "return-type": "json",
+    "interval": 1800,
+    "signal": 8,
+    "format": "{}",
+    "on-click": "~/.config/waybar/scripts/updates.sh upgrade",
+    "on-click-right": "pkill -RTMIN+8 waybar"
   },
   "custom/power": {
     "format": "⏻",
     "tooltip-format": "Power menu",
     "on-click": "~/.config/hypr/scripts/power_menu.py",
     "on-click-right": "~/.config/hypr/scripts/power_menu.py"
-  },
-  "custom/mute": {
-    "exec": "~/.config/hypr/scripts/mute-status.py",
-    "return-type": "json",
-    "interval": 1,
-    "on-click": "~/.config/hypr/scripts/mute-status.py toggle",
-    "tooltip": true
   }
 }

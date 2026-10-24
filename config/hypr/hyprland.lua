@@ -57,8 +57,8 @@ local menu        = "rofi -show drun"
 -- hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 -- hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 hl.env("TERMINAL", terminal)
-hl.env("XCURSOR_THEME", "Breeze_Light")
-hl.env("HYPRCURSOR_THEME", "Breeze_Light")
+hl.env("XCURSOR_THEME", "catppuccin-mocha-mauve-cursors")
+hl.env("HYPRCURSOR_THEME", "catppuccin-mocha-mauve-cursors")
 hl.on("hyprland.start", function()
     hl.exec_cmd("~/.config/hypr/scripts/cursor.sh")
     hl.exec_cmd("~/.config/hypr/scripts/wallpaper_picker.py --restore")
@@ -299,6 +299,8 @@ hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock.sh"))
 hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock.sh"))
 hl.bind("CTRL + End", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh area"))
 hl.bind("CTRL + SHIFT + End", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh full"))
+hl.bind("CTRL + ALT + End", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh edit"))
+hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("~/.config/hypr/scripts/color-picker.sh"))
 for _, entry in ipairs({
     { "SUPER + F", "/.config/hypr/scripts/wallpaper_picker.py" },
     { "SUPER + SHIFT + E", "/.config/hypr/scripts/power_menu.py" },
@@ -392,6 +394,15 @@ hl.window_rule({
 -- overlayLayerRule:set_enabled(false)
 
 -- Hyprland-run windowrule
+-- Satty (screenshot editor) opens as a centered floating window.
+hl.window_rule({
+    name  = "float-satty",
+    match = { class = "com.gabm.satty" },
+
+    float  = true,
+    center = true,
+})
+
 hl.window_rule({
     name  = "move-hyprland-run",
     match = { class = "hyprland-run" },

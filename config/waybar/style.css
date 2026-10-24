@@ -35,6 +35,7 @@ tooltip label {
 #workspaces,
 #mpris,
 #demo,
+#custom-updates,
 #custom-notifications,
 #clock,
 #custom-power {
@@ -52,6 +53,7 @@ tooltip label {
 #memory:hover,
 #disk:hover,
 #mpris:hover,
+#custom-updates:hover,
 #custom-notifications:hover,
 #clock:hover {
   background: alpha(@surface1, 0.9);
@@ -152,6 +154,9 @@ window#waybar.empty #window { background: transparent; color: @overlay0; }
 #language { color: @lavender; min-width: 22px; }
 #idle_inhibitor { color: @overlay1; }
 #idle_inhibitor.activated { color: @yellow; }
+
+#custom-updates { color: @peach; }
+#custom-updates.many { color: @red; }
 
 #custom-notifications { color: @mauve; }
 #custom-notifications.notification,

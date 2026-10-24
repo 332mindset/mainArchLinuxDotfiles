@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# Modes: area (default), full, edit (area opened in Satty for annotations).
+mode="${1:-area}"
 for tool in grim slurp wl-copy; do
     if ! command -v "$tool" >/dev/null; then
         notify-send "Screenshot" "Install grim, slurp and wl-clipboard" || true
@@ -11,12 +13,21 @@ done
 exec 9>"${XDG_RUNTIME_DIR:?}/hypr-screenshot-v2.lock"
 flock -n 9 || exit 0
 geometry=""
-if [[ "${1:-area}" == area ]]; then
-    geometry=$(slurp -b '#00000088' -c '#9bced9' -w 2) || exit 0
+if [[ "$mode" != full ]]; then
+    geometry=$(slurp -b '#11111b88' -c '#cba6f7' -w 2) || exit 0
     [[ -n "$geometry" ]] || exit 0
 fi
 directory="$HOME/Pictures/Screenshots"
 mkdir -p "$directory"
+if [[ "$mode" == edit ]]; then
+    if ! command -v satty >/dev/null; then
+        notify-send "Screenshot" "Install satty: sudo pacman -S satty" || true
+        exit 1
+    fi
+    # Satty saves and copies by itself (see ~/.config/satty/config.toml).
+    grim -g "$geometry" - | satty --filename - 9>&-
+    exit 0
+fi
 file="$directory/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S_%N').png"
 if [[ -n "$geometry" ]]; then
     grim -g "$geometry" "$file"

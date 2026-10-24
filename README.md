@@ -28,15 +28,15 @@ only previews the changes; add `--apply` to install the files.
 | Component | Configuration |
 | --- | --- |
 | Hyprland | Lua config, animations, window rules and keybindings |
-| Waybar | Animated workspaces A–F, media, tray, volume, keyboard layout (EN/RU), idle inhibitor and notifications |
+| Waybar | Workspaces A–F, media, tray, volume, keyboard layout (EN/RU), idle inhibitor, pending updates (pacman + AUR) and notifications |
 | Rofi | Launcher (apps, configuration folders, file browser), clipboard, wallpaper carousel and power menu |
 | Kitty + Zsh | Catppuccin Mocha terminal, oh-my-zsh prompt and a Fastfetch welcome card with a random pixel-art image |
 | Hyprlock | Glass lock screen: blurred desktop, clock, avatar and now playing with cover art and player controls |
 | SwayNC | Notification popups and control center |
 | Cava | Standalone audio visualizer |
-| Dolphin | Custom stylesheet and launcher |
-| GTK + Fontconfig | Fonts and Breeze Light cursor settings |
-| Scripts | Clipboard history, screenshots, wallpaper switching and power menu |
+| Dolphin | Catppuccin stylesheet, KDE color scheme and launcher |
+| GTK + Fontconfig | Catppuccin GTK theme, Papirus icons with mauve folders, Catppuccin cursors and fonts |
+| Scripts | Clipboard history, screenshots with a Satty editor, color picker, wallpaper switching and power menu |
 
 The wallpaper picker reads `~/Pictures/Wallpapers`. Wallpapers from the
 [`wallpapers`](wallpapers) folder are installed there; add your own images
@@ -81,12 +81,21 @@ sudo pacman -Syu --needed \
   git python wl-clipboard cliphist grim slurp libnotify \
   wireplumber pipewire pipewire-pulse playerctl pavucontrol \
   fastfetch dolphin fontconfig ttf-jetbrains-mono-nerd adwaita-fonts \
-  breeze-cursors breeze-icons glib2 util-linux procps-ng coreutils \
-  xdg-desktop-portal-hyprland ffmpeg librsvg
+  breeze-icons papirus-icon-theme glib2 util-linux procps-ng coreutils \
+  xdg-desktop-portal-hyprland ffmpeg imagemagick curl \
+  pacman-contrib hyprpicker satty
 ```
 
-`ffmpeg` renders wallpaper previews; `librsvg` (`rsvg-convert`) draws the lock
-screen dashboard. Optional: `brightnessctl` enables the brightness keys; `code` (Visual Studio
+The Catppuccin GTK theme, cursors and folder colors come from the AUR
+(shown with [yay](https://github.com/Jguer/yay); any AUR helper works):
+
+```sh
+yay -S --needed catppuccin-gtk-theme-mocha catppuccin-cursors-mocha papirus-folders-catppuccin-git
+```
+
+`ffmpeg` renders wallpaper previews; `imagemagick` draws the lock screen cover
+placeholder and color picker swatches; `pacman-contrib` provides `checkupdates`
+for the Waybar updates counter. Optional: `brightnessctl` enables the brightness keys; `code` (Visual Studio
 Code) enables the Rofi **Configs** tab. The desktop itself does not need VS Code.
 
 ## Installation
@@ -147,13 +156,22 @@ The installer leaves `~/.zshrc` and your login configuration alone.
 5. Review `~/.config/hypr/hyprland.lua`. Keyboard layouts are **US + Russian**;
    **Super + Space** switches them. Set `kb_layout = "us"` and `kb_options = ""`
    if you only want English.
-6. Log out and start Hyprland again when ready. From a TTY, you can use:
+6. Apply the Catppuccin folder color and the GTK 4 theme (libadwaita apps read
+   it from `~/.config/gtk-4.0`):
+
+   ```sh
+   sudo papirus-folders -C cat-mocha-mauve --theme Papirus-Dark
+   theme=/usr/share/themes/catppuccin-mocha-mauve-standard+default/gtk-4.0
+   ln -sfn "$theme/gtk.css" "$theme/gtk-dark.css" "$theme/assets" ~/.config/gtk-4.0/
+   ```
+
+7. Log out and start Hyprland again when ready. From a TTY, you can use:
 
    ```sh
    start-hyprland -- --config "$HOME/.config/hypr/hyprland.lua"
    ```
 
-7. Press **Super + F** and choose a wallpaper. It will be restored on subsequent
+8. Press **Super + F** and choose a wallpaper. It will be restored on subsequent
    sessions after the first successful selection.
 
 ## Keybindings
@@ -172,6 +190,8 @@ The installer leaves `~/.zshrc` and your login configuration alone.
 | Super + L / Super + Shift + D | Lock the screen |
 | Ctrl + Super + V | Clipboard history |
 | Ctrl + End / Ctrl + Shift + End | Area / full screenshot, saved and copied |
+| Ctrl + Alt + End | Area screenshot opened in Satty to annotate |
+| Super + Shift + C | Pick a color on screen and copy its HEX |
 | Super + Shift + E | Power menu |
 | Super + 1…9 | Switch workspace |
 | Super + Shift + 1…9 | Move window to workspace |

@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
+# Catppuccin Mocha: mauve cursors, dark GTK theme and Papirus icons.
 set -eu
-export XCURSOR_THEME=Breeze_Light
+cursor=catppuccin-mocha-mauve-cursors
+export XCURSOR_THEME=$cursor
 export XCURSOR_SIZE=24
-export HYPRCURSOR_THEME=Breeze_Light
+export HYPRCURSOR_THEME=$cursor
 export HYPRCURSOR_SIZE=24
-hyprctl setcursor Breeze_Light 24
-gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Light'
+hyprctl setcursor "$cursor" 24
+gsettings set org.gnome.desktop.interface cursor-theme "$cursor"
 gsettings set org.gnome.desktop.interface cursor-size 24
+gsettings set org.gnome.desktop.interface gtk-theme 'catppuccin-mocha-mauve-standard+default'
+gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'

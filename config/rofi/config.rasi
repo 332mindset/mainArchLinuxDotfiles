@@ -1,7 +1,7 @@
 configuration {
     modi: "drun,configs:@HOME@/.config/rofi/scripts/config-modules.py,filebrowser";
     show-icons: true;
-    icon-theme: "breeze-dark";
+    icon-theme: "Papirus-Dark";
     application-fallback-icon: "application-x-executable";
     terminal: "@HOME@/.local/bin/open-terminal";
     drun-display-format: "{name}";

@@ -1,0 +1,32 @@
+# Satty screenshot editor, Catppuccin Mocha palette.
+# https://github.com/gabm/Satty
+[general]
+fullscreen = false
+early-exit = true
+corner-roundness = 12
+initial-tool = "arrow"
+copy-command = "wl-copy"
+annotation-size-factor = 1.5
+output-filename = "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
+save-after-copy = true
+default-hide-toolbars = false
+primary-highlighter = "block"
+disable-notifications = false
+actions-on-enter = ["save-to-clipboard"]
+actions-on-escape = ["exit"]
+
+[font]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[color-palette]
+palette = [
+    "#cba6f7", # mauve
+    "#f38ba8", # red
+    "#fab387", # peach
+    "#f9e2af", # yellow
+    "#a6e3a1", # green
+    "#89b4fa", # blue
+    "#cdd6f4", # text
+    "#11111b", # crust
+]
