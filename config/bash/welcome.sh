@@ -1,4 +1,4 @@
-# Compact monochrome system card for new graphical terminals.
+# Pastel system card for new graphical terminals.
 _rice_terminal_welcome() {
     [[ $- == *i* && -t 0 && -t 1 ]] || return 0
     [[ ${TERM:-dumb} != dumb && -z ${BASH_EXECUTION_STRING:-} ]] || return 0

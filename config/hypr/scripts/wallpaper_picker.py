@@ -2,7 +2,9 @@
 """Choose a wallpaper in Rofi, or restore the last successful selection."""
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import fcntl
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -17,6 +19,8 @@ WALLPAPERS = HOME_DIR / "Pictures/Wallpapers"
 THEME = HOME_DIR / ".config/rofi/wallpapers.rasi"
 STATE_DIR = Path(os.environ.get("XDG_STATE_HOME") or HOME_DIR / ".local/state") / "wallpaper"
 CURRENT = STATE_DIR / "current.json"
+THUMBS = Path(os.environ.get("XDG_CACHE_HOME") or HOME_DIR / ".cache") / "wallpaper-picker"
+THUMB_W, THUMB_H, THUMB_RADIUS = 270, 480, 20
 EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp", ".avif", ".tga", ".qoi", ".pnm"}
 
 
@@ -40,6 +44,34 @@ def images():
         (p for p in WALLPAPERS.rglob("*") if p.is_file() and p.suffix.lower() in EXTENSIONS),
         key=lambda p: str(p.relative_to(WALLPAPERS)).casefold(),
     )
+
+
+def thumbnail(path):
+    """Portrait card with rounded corners, cached by path and mtime; falls back to the original."""
+    try:
+        stamp = f"{path.resolve()}:{path.stat().st_mtime_ns}:{THUMB_W}x{THUMB_H}r{THUMB_RADIUS}"
+    except OSError:
+        return path
+    thumb = THUMBS / (hashlib.sha1(stamp.encode()).hexdigest() + ".png")
+    if thumb.is_file():
+        return thumb
+    if not shutil.which("ffmpeg"):
+        return path
+    w, h, r = THUMB_W, THUMB_H, THUMB_RADIUS
+    # Alpha is 0 outside a quarter circle of radius r in each corner.
+    alpha = f"if(lte(hypot(max(0,abs(X-W/2+0.5)-(W/2-{r})),max(0,abs(Y-H/2+0.5)-(H/2-{r}))),{r}),255,0)"
+    vf = (f"scale={w}:{h}:force_original_aspect_ratio=increase,crop={w}:{h},format=rgba,"
+          f"geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='{alpha}'")
+    temporary = thumb.with_suffix(".tmp.png")
+    result = subprocess.run(
+        ["ffmpeg", "-v", "error", "-y", "-i", str(path), "-frames:v", "1", "-vf", vf, str(temporary)],
+        capture_output=True, timeout=60,
+    )
+    if result.returncode or not temporary.is_file():
+        temporary.unlink(missing_ok=True)
+        return path
+    temporary.replace(thumb)
+    return thumb
 
 
 def ensure_daemon():
@@ -80,6 +112,15 @@ def apply_wallpaper(path, restore=False):
     temporary = CURRENT.with_suffix(".tmp")
     temporary.write_text(json.dumps({"path": str(path)}, ensure_ascii=False) + "\n")
     temporary.replace(CURRENT)
+    # Keep installed theme lockscreens on the last successfully applied image.
+    for theme_name in ("roseglass", "ember"):
+        theme_dir = HOME_DIR / ".config" / theme_name
+        if theme_dir.is_dir():
+            link = theme_dir / "wallpaper.tmp"
+            if link.is_symlink() or link.exists():
+                link.unlink()
+            link.symlink_to(path)
+            link.replace(theme_dir / "wallpaper")
     if not restore:
         notify("Wallpaper changed", path.name)
 
@@ -91,12 +132,15 @@ def choose_wallpaper():
     if not available:
         notify("No wallpapers found", "Add images to ~/Pictures/Wallpapers, then press Super + F.")
         return
+    THUMBS.mkdir(parents=True, exist_ok=True)
+    with ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as pool:
+        thumbs = list(pool.map(thumbnail, available))
     rows = []
-    for path in available:
+    for path, thumb in zip(available, thumbs):
         label = str(path.relative_to(WALLPAPERS))
         # Rofi uses newlines and control characters as row metadata delimiters.
         label = "".join(c if c.isprintable() else " " for c in label)
-        icon = str(path)
+        icon = str(thumb)
         if any(c in icon for c in "\n\r\x1f"):
             rows.append(label + "\n")
         else:
@@ -104,7 +148,10 @@ def choose_wallpaper():
     command = [
         "rofi", "-dmenu", "-i", "-no-custom", "-show-icons", "-format", "i",
         "-p", "Wallpapers", "-theme", str(THEME),
-        "-mesg", "~/Pictures/Wallpapers  ·  Enter — select  ·  Esc — close",
+        # The cards form one horizontal strip: arrows move between cards, not the text cursor.
+        "-kb-move-char-back", "Control+b", "-kb-move-char-forward", "Control+f",
+        "-kb-element-prev", "ISO_Left_Tab,Left", "-kb-element-next", "Tab,Right",
+        "-mesg", "←  →  choose  ·  Enter — apply  ·  Esc — close",
     ]
     current = saved_wallpaper()
     if current in available:
@@ -126,7 +173,9 @@ def choose_wallpaper():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--restore", action="store_true", help="Restore the saved wallpaper without a menu")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--restore", action="store_true", help="Restore the saved wallpaper without a menu")
+    mode.add_argument("--set", type=Path, metavar="IMAGE", help="Apply an image without opening the menu")
     args = parser.parse_args()
     STATE_DIR.mkdir(parents=True, exist_ok=True)
     # Repeated shortcut presses must not open multiple menus or start two daemons.
@@ -136,7 +185,9 @@ def main():
         except BlockingIOError:
             return 0
         try:
-            if args.restore:
+            if args.set is not None:
+                apply_wallpaper(args.set)
+            elif args.restore:
                 previous = saved_wallpaper()
                 if previous and previous.is_file():
                     apply_wallpaper(previous, restore=True)

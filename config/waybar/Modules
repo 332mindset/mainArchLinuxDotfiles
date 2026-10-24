@@ -91,7 +91,7 @@
   "hyprland/workspaces#letters": {
     "disable-scroll": true,
     "show-special": false,
-    "all-outputs": true,
+    "all-outputs": false,
     "format": "{icon}",
     "on-click": "activate",
     "format-icons": {
@@ -99,13 +99,15 @@
       "2": "B",
       "3": "C",
       "4": "D",
+      "5": "E",
+      "6": "F",
+      "7": "G",
+      "8": "H",
+      "9": "I",
       "default": "·"
     },
     "persistent-workspaces": {
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": []
+      "*": 6
     }
   },
   "custom/menu": {
@@ -144,36 +146,40 @@
     "modules": [
       "tray",
       "pulseaudio",
-      "mpris"
+      "custom/kb-layout",
+      "idle_inhibitor"
     ]
   },
-  "custom/cava": {
-    "exec": "python3 -u ~/.config/waybar/scripts/cava.py",
-    "exec-if": "command -v cava",
+  "custom/kb-layout": {
+    "exec": "~/.config/waybar/scripts/kb-layout.py",
     "return-type": "json",
-    "format": "{text}",
-    "hide-empty-text": true,
-    "restart-interval": 3,
-    "exec-on-event": false,
-    "on-click": "playerctl play-pause",
-    "on-click-right": "playerctl next",
-    "tooltip": true
+    "restart-interval": 2,
+    "on-click": "hyprctl switchxkblayout current next"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰾪"
+    },
+    "tooltip-format-activated": "Экран не гаснет",
+    "tooltip-format-deactivated": "Обычный режим простоя"
   },
   "mpris": {
-    "format": "{player_icon}",
-    "format-paused": "{status_icon}",
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} {dynamic}",
+    "dynamic-order": ["artist", "title"],
+    "dynamic-separator": " — ",
+    "max-length": 42,
     "player-icons": {
-      "default": "",
+      "default": "",
       "spotify": "",
       "firefox": ""
     },
     "status-icons": {
       "paused": "󰐎"
     },
-    "tooltip-format": "{artist} — {title}",
-    "on-click": "playerctl play-pause",
-    "on-click-right": "playerctl next",
-    "on-click-middle": "playerctl previous"
+    "tooltip-format": "{dynamic}"
   },
   "custom/notifications": {
     "format": "{icon}",

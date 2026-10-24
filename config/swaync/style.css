@@ -34,3 +34,29 @@
 .widget-dnd > switch slider { background: #e2e2e2; border-radius: 16px; }
 .close-button { background: #303030; color: #e2e2e2; }
 .close-button:hover { background: #b8b8b8; color: #181818; }
+
+/* Native MPRIS card: album art and previous/play/next controls. */
+:root {
+  --mpris-album-art-overlay: rgba(24, 24, 24, 0.88);
+  --mpris-button-hover: #383838;
+  --mpris-album-art-icon-size: 88px;
+}
+.widget-mpris { padding: 0; margin: 8px 0; }
+.widget-mpris .widget-mpris-player {
+  margin: 0;
+  border: 1px solid rgba(184, 184, 184, 0.35);
+  border-radius: 12px;
+  color: #e2e2e2;
+}
+.widget-mpris .widget-mpris-player .mpris-overlay { padding: 12px; }
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-album-art { border-radius: 8px; }
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-title { font-size: 14px; }
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-subtitle { font-size: 12px; color: #b8b8b8; }
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 2px;
+  border-radius: 8px;
+  color: #e2e2e2;
+  -gtk-icon-size: 18px;
+}

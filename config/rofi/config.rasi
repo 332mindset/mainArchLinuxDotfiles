@@ -5,9 +5,5 @@ configuration {
     application-fallback-icon: "application-x-executable";
     terminal: "@HOME@/.local/bin/open-terminal";
     drun-display-format: "{name}";
-    display-drun: "<span font_desc='JetBrainsMono Nerd Font Propo 14'>󰀻</span>  Apps";
-    display-configs: "<span font_desc='JetBrainsMono Nerd Font Propo 14'></span>  Configs";
-    display-filebrowser: "<span font_desc='JetBrainsMono Nerd Font Propo 14'></span>  Files";
-    sidebar-mode: true;
 }
-@theme "themes/sidebar-gray.rasi"
+@theme "themes/adi-type1-style5.rasi"

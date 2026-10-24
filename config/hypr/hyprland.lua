@@ -62,7 +62,7 @@ hl.env("HYPRCURSOR_THEME", "Breeze_Light")
 hl.on("hyprland.start", function()
     hl.exec_cmd("~/.config/hypr/scripts/cursor.sh")
     hl.exec_cmd("~/.config/hypr/scripts/wallpaper_picker.py --restore")
-    hl.exec_cmd("sleep 3 && waybar")
+    hl.exec_cmd("sleep 3 && ~/.config/waybar/scripts/launch.sh")
     hl.exec_cmd("swaync")
     hl.exec_cmd("~/.config/hypr/scripts/clipboard-start.sh")
 end)
@@ -121,8 +121,8 @@ hl.config({
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
-        active_opacity   = 1.0,
-        inactive_opacity = 0.96,
+        active_opacity   = 0.90,
+        inactive_opacity = 0.82,
 
         shadow = {
             enabled      = true,
@@ -145,11 +145,14 @@ hl.config({
     },
 })
 
--- Smooth motion: soft window entrance, cinematic workspace slides.
+-- Smooth motion: soft window entrance, relaxed workspace slides.
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 hl.curve("smoothOut", { type = "bezier", points = { {0.16, 1}, {0.30, 1} } })
 hl.curve("smoothIn", { type = "bezier", points = { {0.40, 0}, {0.85, 0.35} } })
-hl.curve("workspaceGlide", { type = "bezier", points = { {0.22, 0.80}, {0.25, 1} } })
+-- Gentle acceleration and a long, smooth stop without a spring impulse.
+hl.curve("workspaceFlow", { type = "bezier", points = { {0.42, 0}, {0.25, 1} } })
+-- Ease out for workspace switching: a smooth stop without overshoot.
+hl.curve("workspaceEaseOut", { type = "bezier", points = { {0.22, 1}, {0.36, 1} } })
 hl.curve("softFade", { type = "bezier", points = { {0.25, 0.10}, {0.25, 1} } })
 hl.curve("softSpring", { type = "spring", mass = 1, stiffness = 190, dampening = 25 })
 
@@ -172,12 +175,13 @@ hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 3, bezier = "softF
 hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 2.5, bezier = "softFade" })
 hl.animation({ leaf = "fadePopupsIn", enabled = true, speed = 2.5, bezier = "smoothOut" })
 hl.animation({ leaf = "fadePopupsOut", enabled = true, speed = 2, bezier = "softFade" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 6, bezier = "workspaceGlide", style = "slidefade 25%" })
-hl.animation({ leaf = "workspacesIn", enabled = true, speed = 6, bezier = "workspaceGlide", style = "slidefade 25%" })
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 6, bezier = "workspaceGlide", style = "slidefade 25%" })
-hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 5, bezier = "smoothOut", style = "slidefadevert 20%" })
-hl.animation({ leaf = "specialWorkspaceIn", enabled = true, speed = 5, bezier = "smoothOut", style = "slidefadevert 20%" })
-hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 4, bezier = "smoothIn", style = "slidefadevert 20%" })
+-- A 30% slide with fading over 450 ms (speed is measured in deciseconds).
+hl.animation({ leaf = "workspaces", enabled = true, speed = 4.5, bezier = "workspaceEaseOut", style = "slidefade 30%" })
+hl.animation({ leaf = "workspacesIn", enabled = true, speed = 4.5, bezier = "workspaceEaseOut", style = "slidefade 30%" })
+hl.animation({ leaf = "workspacesOut", enabled = true, speed = 4.5, bezier = "workspaceEaseOut", style = "slidefade 30%" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 6.5, bezier = "workspaceFlow", style = "slidefadevert 18%" })
+hl.animation({ leaf = "specialWorkspaceIn", enabled = true, speed = 6.5, bezier = "workspaceFlow", style = "slidefadevert 18%" })
+hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 6.5, bezier = "workspaceFlow", style = "slidefadevert 18%" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 5, bezier = "smoothOut" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
@@ -293,8 +297,8 @@ hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind("CTRL + SUPER + V", hl.dsp.exec_cmd("~/.config/hypr/scripts/clipboard.sh"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock.sh"))
 hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock.sh"))
-hl.bind("Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh area"))
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh full"))
+hl.bind("CTRL + End", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh area"))
+hl.bind("CTRL + SHIFT + End", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh full"))
 for _, entry in ipairs({
     { "SUPER + F", "/.config/hypr/scripts/wallpaper_picker.py" },
     { "SUPER + SHIFT + E", "/.config/hypr/scripts/power_menu.py" },
@@ -311,10 +315,10 @@ hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
 
--- Switch workspaces with mainMod + [0-9]
--- Move active window to a workspace with mainMod + SHIFT + [0-9]
-for i = 1, 10 do
-    local key = i % 10 -- 10 maps to key 0
+-- Switch workspaces with mainMod + [1-9]
+-- Move active window to a workspace with mainMod + SHIFT + [1-9]
+for i = 1, 9 do
+    local key = i
     hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i}))
     hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
 end
@@ -323,9 +327,9 @@ end
 hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
--- Scroll through existing workspaces with mainMod + scroll
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+-- Scroll only through workspaces assigned to the focused monitor
+hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "m+1" }))
+hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "m-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
@@ -396,8 +400,8 @@ hl.window_rule({
     float = true,
 })
 
--- Preserve monitor workspace assignments.
-for i = 1, 5 do
-    local rule = { workspace = tostring(i), persistent = true }
-    hl.workspace_rule(rule)
+-- Six persistent desktops (A-F in Waybar). Per-monitor assignments: examples/monitors.lua.
+for i = 1, 6 do
+    hl.workspace_rule({ workspace = tostring(i), persistent = true })
 end
+require("hyprmotion.quick-panel")

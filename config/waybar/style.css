@@ -21,7 +21,7 @@ window#waybar {
 
   /*background: alpha(@background, 0.1);*/
       background: rgba (0, 0, 0, 0.6);
-  border-radius: 5px;
+  border-radius: 12px;
   /*border: 0px solid alpha(@background,0.8);*/
 }
 
@@ -105,14 +105,14 @@ menu radio:checked {
 #disk,
 #custom-updates {
   padding: 0px 6px;
-  margin: 6px 4px;
+  margin: 5px 4px;
   background: alpha(darker(@main-color), 0.4);
   color: @main-color;
   border-radius: 10px;
 }
 
 #workspaces {
-  margin: 4px 4px;
+  margin: 5px 4px;
   background: alpha(lighter(@color4), 0.09);
   border-radius: 5px;
 }
@@ -138,7 +138,7 @@ menu radio:checked {
 #demo,
 #control-center {
   padding: 0px 6px;
-  margin: 4px 2px 4px 2px ;
+  margin: 5px 2px 5px 2px ;
   color: lighter(@color3);
   background: alpha(lighter(@main-color),0.08);
   border-radius: 5px;
@@ -187,7 +187,7 @@ menu radio:checked {
 }
 #tray {
   padding: 0px 8px;
-    margin: 4px 2px 4px 2px;
+  margin: 0px 2px;
   background: alpha(@color12,0.3);
   border-radius: 5px;
   color: lighter(@main-color);
@@ -196,7 +196,7 @@ menu radio:checked {
 #custom-menu,
 #custom-power {
   padding: 0px 8px;
-  margin: 6px 6px 6px 4px;
+  margin: 5px 6px 5px 4px;
   background: alpha(@color12,0.3);
   border-radius: 5px;
   color: lighter(@main-color);
@@ -218,12 +218,21 @@ menu radio:checked {
 #mpd,
 #pulseaudio,
 
-#battery,
-
-
-#mpris{
+#battery {
  padding: 4px 4px;
   color: lighter(@main-color);
+}
+
+#mpris {
+  padding: 0 8px;
+  margin: 5px 4px;
+  background: alpha(@color12, 0.3);
+  border-radius: 5px;
+  color: lighter(@main-color);
+}
+
+#mpris.paused {
+  color: alpha(@main-color, 0.65);
 }
 
 #workspaces button { min-width: 22px; }
@@ -260,3 +269,10 @@ menu radio:checked {
   color: #181818;
   background: #b8b8b8;
 }
+
+#custom-kb-layout,
+#idle_inhibitor {
+  padding: 0 6px;
+  color: lighter(@main-color);
+}
+#idle_inhibitor.activated { color: @color12; }

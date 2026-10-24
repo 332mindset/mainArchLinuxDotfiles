@@ -11,6 +11,6 @@ if [[ -z "$history" ]]; then
     notify-send "Clipboard" "History is empty. Copy some text or an image." || true
     exit 0
 fi
-selection=$(printf '%s\n' "$history" | rofi -dmenu -i -p "Clipboard" -display-columns 2 -theme-str 'window { width: 680px; } listview { lines: 10; }' -no-custom) || exit 0
+selection=$(printf '%s\n' "$history" | rofi -dmenu -i -p "Clipboard" -display-columns 2 -theme "${XDG_CONFIG_HOME:-$HOME/.config}/rofi/clipboard.rasi" -no-show-icons -no-custom) || exit 0
 [[ -n "$selection" ]] || exit 0
 printf '%s\n' "$selection" | cliphist decode | wl-copy

@@ -24,6 +24,7 @@
   "widgets": [
     "title",
     "dnd",
+    "mpris",
     "notifications"
   ],
   "widget-config": {
@@ -37,6 +38,12 @@
     },
     "notifications": {
       "vexpand": true
+    },
+    "mpris": {
+      "show-album-art": "always",
+      "autohide": true,
+      "blacklist": [],
+      "loop-carousel": false
     }
   }
 }

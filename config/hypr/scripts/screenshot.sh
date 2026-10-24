@@ -21,7 +21,7 @@ file="$directory/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S_%N').png"
 if [[ -n "$geometry" ]]; then
     grim -g "$geometry" "$file"
 else
-    grim "$file"
+    grim -o DVI-D-1 "$file"
 fi
 # wl-copy forks to serve the clipboard; its child must not inherit our lock.
 wl-copy --type image/png < "$file" 9>&-

@@ -1,7 +1,7 @@
 # Arch Linux + Hyprland dotfiles
 
-My monochrome desktop configuration: translucent windows, smooth animations,
-a compact Waybar, Rofi menus and a matching terminal.
+My desktop configuration: translucent windows, smooth animations, a compact
+Waybar, One Dark Rofi menus, a dashboard lock screen and a matching terminal.
 
 [Watch the desktop showcase on YouTube](https://www.youtube.com/watch?v=beIpVuMDd-8).
 
@@ -16,19 +16,20 @@ only previews the changes; add `--apply` to install the files.
 | Component | Configuration |
 | --- | --- |
 | Hyprland | Lua config, animations, window rules and keybindings |
-| Waybar | Workspaces A–D, audio visualizer, media controls, tray and notifications |
-| Rofi | Apps, configuration folders, file browser, wallpaper and power menus |
+| Waybar | Workspaces A–F, media, tray, volume, keyboard layout (EN/RU), idle inhibitor and notifications |
+| Rofi | One Dark launcher (apps, configuration folders, file browser), clipboard, wallpaper carousel and power menu |
 | Foot + Bash | Monochrome terminal, prompt, completion and Fastfetch welcome card |
-| Hyprlock | Matching lock screen and image |
+| Hyprlock | Dashboard lock screen: music, calendar, system stats, volume and notifications ([details](config/hypr/assets/hyprlock/dashboard/README.md)) |
 | SwayNC | Notification popups and control center |
-| Cava | Standalone audio visualizer and Waybar integration |
+| Cava | Standalone audio visualizer |
 | Dolphin | Custom stylesheet and launcher |
 | GTK + Fontconfig | Fonts and Breeze Light cursor settings |
 | Scripts | Clipboard history, screenshots, wallpaper switching and power menu |
 
 The wallpaper picker reads `~/Pictures/Wallpapers`. Wallpapers from the
 [`wallpapers`](wallpapers) folder are installed there; add your own images
-for more choices.
+for more choices. On first open the picker caches rounded preview cards in
+`~/.cache/wallpaper-picker`.
 
 ## Compatibility
 
@@ -69,10 +70,11 @@ sudo pacman -Syu --needed \
   wireplumber pipewire pipewire-pulse playerctl pavucontrol \
   fastfetch dolphin fontconfig ttf-jetbrains-mono-nerd adwaita-fonts \
   breeze-cursors breeze-icons glib2 util-linux procps-ng coreutils \
-  xdg-desktop-portal-hyprland
+  xdg-desktop-portal-hyprland ffmpeg librsvg
 ```
 
-Optional: `brightnessctl` enables the brightness keys; `code` (Visual Studio
+`ffmpeg` renders wallpaper previews; `librsvg` (`rsvg-convert`) draws the lock
+screen dashboard. Optional: `brightnessctl` enables the brightness keys; `code` (Visual Studio
 Code) enables the Rofi **Configs** tab. The desktop itself does not need VS Code.
 
 ## Installation
@@ -102,7 +104,9 @@ The installer copies files into your home directory, fills in your home path
 where the templates contain `@HOME@`, and sets executable permissions on
 scripts. Existing component folders/files are moved to a dated backup under
 `~/.local/state/dotfiles/backups/`. Each listed config folder is replaced as a
-whole, so settings from your old folder remain in the backup.
+whole, so settings from your old folder remain in the backup. Shared folders
+(`gtk-3.0`, `gtk-4.0`, `fontconfig`) are updated file by file, so other data
+there, such as GTK bookmarks, stays in place.
 
 Symlinked destinations are refused: if you already manage your configuration
 with Stow or another dotfiles manager, adapt the files through that manager.
@@ -137,14 +141,16 @@ The installer leaves `~/.bashrc` and your login configuration alone.
 | Super + R | Restart Waybar |
 | Super + L / Super + Shift + D | Lock the screen |
 | Ctrl + Super + V | Clipboard history |
-| Print / Shift + Print | Area / full screenshot, saved and copied |
+| Ctrl + End / Ctrl + Shift + End | Area / full screenshot, saved and copied |
 | Super + Shift + E | Power menu |
-| Super + 1…9, 0 | Switch workspace (0 is workspace 10) |
-| Super + Shift + 1…9, 0 | Move window to workspace |
+| Super + 1…9 | Switch workspace |
+| Super + Shift + 1…9 | Move window to workspace |
+| Super + Space | Switch keyboard layout (EN/RU) |
 | Super + arrows | Move focus |
 | Super + V | Toggle floating |
 | Super + P / Super + J | Pseudotile / toggle split |
 | Super + S / Super + Shift + S | Toggle / move to scratchpad |
+| Super + mouse wheel | Next / previous workspace on this monitor |
 | Super + mouse drag | Move or resize a window |
 
 The clipboard collector stores copied text/images locally; its history is
@@ -172,7 +178,6 @@ have no backup. Your other configuration folders are not part of this install.
 Existing source comments and attributions are preserved:
 
 - Waybar styling credits [JaKooLit](https://github.com/JaKooLit).
-- The Rofi sidebar layout was inspired by
-  [adi1090x/rofi](https://github.com/adi1090x/rofi/blob/master/files/launchers/type-1/style-9.rasi).
-- The base Rofi theme comes from
-  [newmanls/rofi-themes-collection](https://github.com/newmanls/rofi-themes-collection/blob/master/themes/simple-tokyonight.rasi).
+- The Rofi theme is based on
+  [adi1090x/rofi](https://github.com/adi1090x/rofi/blob/master/files/launchers/type-1/style-5.rasi)
+  (type-1, style-5) with the One Dark colors.

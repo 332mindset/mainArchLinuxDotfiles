@@ -19,7 +19,7 @@
     "hyprland/workspaces#letters"
   ],
   "modules-right": [
-    "custom/cava",
+    "mpris",
     "group/demo",
     "group/hub",
     "custom/power"

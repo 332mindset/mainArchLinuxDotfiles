@@ -10,11 +10,18 @@ import shutil
 import tempfile
 
 REPO = Path(__file__).resolve().parent
+# Folders that also hold other programs' data (e.g. gtk-3.0/bookmarks):
+# install their files one by one instead of replacing the whole folder.
+SHARED = {"gtk-3.0", "gtk-4.0", "fontconfig"}
 
 
 def entries():
     for path in sorted((REPO / "config").iterdir()):
-        yield path, Path(".config") / path.name
+        if path.name in SHARED:
+            for file in sorted(p for p in path.rglob("*") if p.is_file()):
+                yield file, Path(".config") / file.relative_to(REPO / "config")
+        else:
+            yield path, Path(".config") / path.name
     for path in sorted((REPO / "bin").iterdir()):
         yield path, Path(".local/bin") / path.name
     for name in [".inputrc", ".gtkrc-2.0", ".icons/default"]:

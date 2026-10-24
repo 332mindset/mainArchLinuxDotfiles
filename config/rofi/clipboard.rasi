@@ -1,0 +1,7 @@
+
+@theme "themes/adi-type1-style5.rasi"
+mainbox { children: [ inputbar, message, listview ]; }
+mode-switcher { enabled: false; }
+entry { placeholder: "Search clipboard…"; }
+listview { lines: 9; }
+element { children: [ element-text ]; }
