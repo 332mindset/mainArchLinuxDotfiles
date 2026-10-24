@@ -1,4 +1,15 @@
-# Arch Linux + Hyprland dotfiles
+<h1 align="center">Arch Linux + Hyprland dotfiles</h1>
+
+<p align="center">
+  <img src="assets/preview.png" alt="Hyprland desktop with Waybar, Kitty running Fastfetch and Cava" width="100%">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Arch_Linux-1793D1?style=flat-square&logo=archlinux&logoColor=white" alt="Arch Linux">
+  <img src="https://img.shields.io/badge/Hyprland-0.56.2-58E1FF?style=flat-square&logo=hyprland&logoColor=white" alt="Hyprland 0.56.2">
+  <img src="https://img.shields.io/badge/Wayland-FFBC00?style=flat-square&logo=wayland&logoColor=black" alt="Wayland">
+  <a href="https://www.youtube.com/watch?v=beIpVuMDd-8"><img src="https://img.shields.io/badge/Showcase-YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="Showcase on YouTube"></a>
+</p>
 
 My desktop configuration: translucent windows, smooth animations, a compact
 Waybar, One Dark Rofi menus, a dashboard lock screen and a matching terminal.
