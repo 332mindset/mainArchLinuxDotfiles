@@ -6,4 +6,5 @@ configuration {
     terminal: "@HOME@/.local/bin/open-terminal";
     drun-display-format: "{name}";
 }
+// @theme "themes/sidebar-gray.rasi"
 @theme "themes/adi-type1-style5.rasi"

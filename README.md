@@ -11,9 +11,11 @@
   <a href="https://www.youtube.com/watch?v=beIpVuMDd-8"><img src="https://img.shields.io/badge/Showcase-YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="Showcase on YouTube"></a>
 </p>
 
-My desktop configuration in [Catppuccin Mocha](https://catppuccin.com):
-translucent windows with rotating gradient borders, smooth animations, a compact
-Waybar, Rofi menus, a glass lock screen and a matching terminal.
+My desktop configuration with colors taken from the wallpaper
+([matugen](https://github.com/InioX/matugen), monochrome scheme): translucent
+windows, smooth animations, a minimal frosted-glass Waybar, Rofi menus, a glass
+lock screen and a matching terminal. GTK apps and Dolphin use
+[Catppuccin Mocha](https://catppuccin.com).
 
 [Watch the desktop showcase on YouTube](https://www.youtube.com/watch?v=beIpVuMDd-8).
 
@@ -28,20 +30,25 @@ only previews the changes; add `--apply` to install the files.
 | Component | Configuration |
 | --- | --- |
 | Hyprland | Lua config, animations, window rules and keybindings |
-| Waybar | Workspaces A–F, media, tray, volume, keyboard layout (EN/RU), idle inhibitor, pending updates (pacman + AUR) and notifications |
+| Waybar | Workspaces A–F, tray, volume and microphone, keyboard layout (EN/RU), idle inhibitor, pending updates (pacman + AUR) and notifications |
 | Rofi | Launcher (apps, configuration folders, file browser), clipboard, wallpaper carousel and power menu |
-| Kitty + Zsh | Catppuccin Mocha terminal, oh-my-zsh prompt and a Fastfetch welcome card with a random pixel-art image |
+| Kitty + Zsh | Wallpaper-colored terminal, oh-my-zsh prompt and a Fastfetch welcome card with a random pixel-art image |
 | Hyprlock | Glass lock screen: blurred desktop, clock, avatar and now playing with cover art and player controls |
 | SwayNC | Notification popups and control center |
 | Cava | Standalone audio visualizer |
 | Dolphin | Catppuccin stylesheet, KDE color scheme and launcher |
-| GTK + Fontconfig | Catppuccin GTK theme, Papirus icons with mauve folders, Catppuccin cursors and fonts |
+| GTK + Fontconfig | Catppuccin GTK theme, Papirus icons with mauve folders, Bibata cursors and fonts |
+| Matugen | Recolors Waybar, Kitty, Rofi, SwayNC, Hyprland borders, Hyprlock and Firefox after every wallpaper change |
 | Scripts | Clipboard history, screenshots with a Satty editor, color picker, wallpaper switching and power menu |
 
 The wallpaper picker reads `~/Pictures/Wallpapers`. Wallpapers from the
 [`wallpapers`](wallpapers) folder are installed there; add your own images
 for more choices. On first open the picker caches rounded preview cards in
-`~/.cache/wallpaper-picker`.
+`~/.cache/wallpaper-picker`. After each change it runs `matugen` with
+[`config/matugen/config.toml`](config/matugen/config.toml); the files it writes
+(`waybar/matugen.css`, `kitty/matugen.conf`, `hypr/colors.lua`, …) ship with a
+starting palette. The Firefox template targets my profile folder: change its
+`output_path` to your own profile's `chrome/` folder, or remove that template.
 
 ## Compatibility
 
@@ -80,17 +87,17 @@ sudo pacman -Syu --needed \
   hyprland hyprlock waybar rofi kitty zsh swaync cava awww \
   git python wl-clipboard cliphist grim slurp libnotify \
   wireplumber pipewire pipewire-pulse playerctl pavucontrol \
-  fastfetch dolphin fontconfig ttf-jetbrains-mono-nerd adwaita-fonts \
+  fastfetch dolphin fontconfig ttf-jetbrains-mono-nerd ttf-iosevka-nerd adwaita-fonts \
   breeze-icons papirus-icon-theme glib2 util-linux procps-ng coreutils \
   xdg-desktop-portal-hyprland ffmpeg imagemagick curl \
-  pacman-contrib hyprpicker satty
+  pacman-contrib hyprpicker satty matugen
 ```
 
-The Catppuccin GTK theme, cursors and folder colors come from the AUR
+The Catppuccin GTK theme, folder colors and Bibata cursors come from the AUR
 (shown with [yay](https://github.com/Jguer/yay); any AUR helper works):
 
 ```sh
-yay -S --needed catppuccin-gtk-theme-mocha catppuccin-cursors-mocha papirus-folders-catppuccin-git
+yay -S --needed catppuccin-gtk-theme-mocha bibata-cursor-theme-bin papirus-folders-catppuccin-git
 ```
 
 `ffmpeg` renders wallpaper previews; `imagemagick` draws the lock screen cover
@@ -213,7 +220,7 @@ running desktop with `~/.config/hypr/scripts/apply-desktop.sh` after checking
 your monitor settings. A fresh session also starts the clipboard collector
 and notification daemon.
 
-If symbols look like boxes, check that JetBrainsMono Nerd Font is installed.
+If symbols look like boxes, check that JetBrainsMono and Iosevka Nerd Fonts are installed.
 The wallpaper picker requires **awww**, not hyprpaper.
 
 To restore a previous configuration, use the backup directory printed by the
@@ -228,7 +235,10 @@ have no backup. Your other configuration folders are not part of this install.
 Existing source comments and attributions are preserved:
 
 - Waybar layout is based on [JaKooLit](https://github.com/JaKooLit)'s styling.
-- Colors: [Catppuccin](https://github.com/catppuccin/catppuccin) Mocha palette.
+- Colors: generated from the wallpaper by [matugen](https://github.com/InioX/matugen);
+  GTK and Dolphin use the [Catppuccin](https://github.com/catppuccin/catppuccin) Mocha palette.
+- The bar, Rofi and notification look follows
+  [Hyprlust](https://github.com/NischalDawadi/Hyprlust)'s "[Dark] Purpl".
 - The Rofi theme is based on
   [adi1090x/rofi](https://github.com/adi1090x/rofi/blob/master/files/launchers/type-1/style-5.rasi)
   (type-1, style-5), recolored with Catppuccin Mocha.

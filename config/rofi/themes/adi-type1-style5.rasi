@@ -19,16 +19,11 @@ configuration {
     window-format:              "{w} · {c} · {t}";
 }
 
+@import "matugen-colors.rasi"
+
 /*****----- Global Properties -----*****/
 * {
-    font:                        "JetBrainsMono Nerd Font 10";
-    /* Catppuccin Mocha */
-    background:                  #1E1E2EF2;
-    background-alt:              #313244FF;
-    foreground:                  #CDD6F4FF;
-    selected:                    #CBA6F7FF;
-    active:                      #A6E3A1FF;
-    urgent:                      #F38BA8FF;
+    font:                        "Iosevka Nerd Font 12";
 }
 
 * {
@@ -125,7 +120,7 @@ textbox-prompt-colon {
     padding:                     5px 0px;
     expand:                      false;
     str:                         "󰍉";
-    font:                        "JetBrainsMono Nerd Font Propo 14";
+    font:                        "Iosevka Nerd Font Propo 16";
     vertical-align:              0.5;
     background-color:            inherit;
     text-color:                  inherit;

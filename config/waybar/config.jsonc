@@ -1,7 +1,7 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 36,
+  "height": 38,
   "margin-left": 50,
   "margin-right": 50,
   "margin-top": 5,
@@ -19,9 +19,9 @@
     "hyprland/workspaces#letters"
   ],
   "modules-right": [
-    "mpris",
     "group/demo",
     "group/hub",
+    "clock",
     "custom/power"
   ]
 }

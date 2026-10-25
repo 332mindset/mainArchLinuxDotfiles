@@ -1,4 +1,5 @@
 
+// @theme "themes/sidebar-gray.rasi"
 @theme "themes/adi-type1-style5.rasi"
 mainbox { children: [ inputbar, message, listview ]; }
 mode-switcher { enabled: false; }

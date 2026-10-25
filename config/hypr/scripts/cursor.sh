@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Catppuccin Mocha: mauve cursors, dark GTK theme and Papirus icons.
+# Bibata Modern Classic cursors, dark GTK theme and Papirus icons.
 set -eu
-cursor=catppuccin-mocha-mauve-cursors
+cursor=Bibata-Modern-Classic
 export XCURSOR_THEME=$cursor
 export XCURSOR_SIZE=24
 export HYPRCURSOR_THEME=$cursor

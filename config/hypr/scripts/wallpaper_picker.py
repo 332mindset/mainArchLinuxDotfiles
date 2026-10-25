@@ -122,7 +122,23 @@ def apply_wallpaper(path, restore=False):
             link.symlink_to(path)
             link.replace(theme_dir / "wallpaper")
     if not restore:
+        apply_colors(path)
         notify("Wallpaper changed", path.name)
+
+
+def apply_colors(path):
+    """Recolour Waybar, Kitty, Rofi, SwayNC, Hyprland, Hyprlock and Firefox from the image (~/.config/matugen)."""
+    matugen = shutil.which("matugen")
+    if not matugen:
+        notify("Colours not updated", "Install matugen: sudo pacman -S matugen")
+        return
+    # Index 0 is the best-scored (dominant) colour and avoids the interactive prompt.
+    result = subprocess.run(
+        [matugen, "image", str(path), "--source-color-index", "0", "-t", "scheme-monochrome", "-m", "dark", "-q"],
+        capture_output=True, text=True, timeout=60,
+    )
+    if result.returncode:
+        notify("Colours not updated", result.stderr.strip()[-300:] or "matugen failed")
 
 
 def choose_wallpaper():

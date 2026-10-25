@@ -9,6 +9,12 @@
 -- Create your files separately and then require them like this:
 -- require("myColors")
 
+-- Border colours from the wallpaper (matugen writes colors.lua).
+local ok, colors = pcall(dofile, os.getenv("HOME") .. "/.config/hypr/colors.lua")
+if not ok then
+    colors = { active_border = { "rgba(cba6f7ee)", "rgba(89b4faee)" }, inactive_border = "rgba(313244aa)" }
+end
+
 
 ------------------
 ---- MONITORS ----
@@ -57,8 +63,8 @@ local menu        = "rofi -show drun"
 -- hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 -- hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 hl.env("TERMINAL", terminal)
-hl.env("XCURSOR_THEME", "catppuccin-mocha-mauve-cursors")
-hl.env("HYPRCURSOR_THEME", "catppuccin-mocha-mauve-cursors")
+hl.env("XCURSOR_THEME", "Bibata-Modern-Classic")
+hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Classic")
 hl.on("hyprland.start", function()
     hl.exec_cmd("~/.config/hypr/scripts/cursor.sh")
     hl.exec_cmd("~/.config/hypr/scripts/wallpaper_picker.py --restore")
@@ -97,15 +103,15 @@ hl.env("HYPRCURSOR_SIZE", "24")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
-        gaps_in  = 5,
-        gaps_out = 20,
+        gaps_in  = 4,
+        gaps_out = 10,
 
-        border_size = 3,
+        border_size = 2,
 
         col = {
-            -- Catppuccin Mocha: mauve -> blue, slowly rotating (see borderangle below)
-            active_border   = { colors = { "rgba(cba6f7ee)", "rgba(89b4faee)" }, angle = 45 },
-            inactive_border = "rgba(313244aa)",
+            -- One soft light tone from the wallpaper; unfocused windows have no frame
+            active_border   = { colors = colors.active_border, angle = 45 },
+            inactive_border = colors.inactive_border,
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -118,7 +124,7 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 16,
+        rounding       = 10,
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
@@ -126,7 +132,7 @@ hl.config({
         inactive_opacity = 0.82,
 
         shadow = {
-            enabled      = true,
+            enabled      = false,
             range        = 14,
             render_power = 2,
             color        = 0x7711111b,
@@ -384,6 +390,17 @@ hl.window_rule({
 
     no_focus = true,
 })
+
+-- Frosted glass behind the bar, Rofi and notifications (Hyprlust look):
+-- they draw translucent black, the blurred wallpaper shows through.
+for _, namespace in ipairs({ "waybar", "rofi", "swaync-control-center", "swaync-notification-window" }) do
+    hl.layer_rule({
+        name  = "blur-" .. namespace,
+        match = { namespace = "^" .. namespace .. "$" },
+        blur         = true,
+        ignore_alpha = 0.01,
+    })
+end
 
 -- Layer rules also return a handle.
 -- local overlayLayerRule = hl.layer_rule({

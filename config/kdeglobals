@@ -1,4 +1,3 @@
-# Catppuccin Mocha palette for Dolphin and other KDE apps outside Plasma.
 [Colors:Button]
 BackgroundAlternate=69,71,90
 BackgroundNormal=49,50,68
@@ -102,23 +101,26 @@ ColorScheme=CatppuccinMocha
 TerminalApplication=@HOME@/.local/bin/open-terminal
 TerminalService=kitty.desktop
 fixed=JetBrainsMono Nerd Font Mono,11,-1,5,50,0,0,0,0,0
-font=JetBrainsMono Nerd Font,11,-1,5,50,0,0,0,0,0
-menuFont=JetBrainsMono Nerd Font,11,-1,5,50,0,0,0,0,0
-smallestReadableFont=JetBrainsMono Nerd Font,11,-1,5,50,0,0,0,0,0
-taskbarFont=JetBrainsMono Nerd Font,11,-1,5,50,0,0,0,0,0
-toolBarFont=JetBrainsMono Nerd Font,11,-1,5,50,0,0,0,0,0
-
-[Icons]
-Theme=Papirus-Dark
+font=JetBrainsMono Nerd Font,13,-1,5,50,0,0,0,0,0
+menuFont=JetBrainsMono Nerd Font,13,-1,5,50,0,0,0,0,0
+smallestReadableFont=JetBrainsMono Nerd Font,13,-1,5,50,0,0,0,0,0
+taskbarFont=JetBrainsMono Nerd Font,13,-1,5,50,0,0,0,0,0
+toolBarFont=JetBrainsMono Nerd Font,13,-1,5,50,0,0,0,0,0
 
 [KDE]
 contrast=4
 
+[KShortcutsDialog Settings]
+Dialog Size=600,480
+
 [WM]
-activeFont=JetBrainsMono Nerd Font,11,-1,5,50,0,0,0,0,0
+activeFont=JetBrainsMono Nerd Font,13,-1,5,50,0,0,0,0,0
 activeBackground=17,17,27
 activeBlend=203,166,247
 activeForeground=205,214,244
 inactiveBackground=17,17,27
 inactiveBlend=108,112,134
 inactiveForeground=127,132,156
+
+[Icons]
+Theme=Papirus-Dark

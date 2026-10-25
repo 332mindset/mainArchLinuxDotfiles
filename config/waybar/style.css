@@ -1,31 +1,33 @@
-/* Catppuccin Mocha. Layout originally based on https://github.com/JaKooLit */
-@import "catppuccin-mocha.css";
+/* Minimal translucent bar after Hyprlust's "[Dark] Purpl" (https://github.com/NischalDawadi/Hyprlust).
+   Monochrome greys from matugen (scheme-monochrome); the wallpaper shows through the blur. */
+@import "matugen.css";
+
+@define-color main @text;
 
 * {
   all: unset; /* isolate Waybar from the GTK theme */
-  font: bold 14px "JetBrainsMono Nerd Font Propo";
+  font: bold 16px "Iosevka Nerd Font Propo";
   font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
 }
 
 window#waybar {
-  background: alpha(@crust, 0.82);
-  border: 1px solid alpha(@surface1, 0.6);
-  border-radius: 14px;
-  color: @text;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  color: @main;
 }
 
 tooltip {
-  background: alpha(@base, 0.96);
-  border: 1px solid alpha(@mauve, 0.6);
-  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid alpha(@main, 0.5);
+  border-radius: 8px;
 }
 
 tooltip label {
-  color: @text;
+  color: @main;
   padding: 2px 4px;
 }
 
-/* ---- Shared pill look ---------------------------------------------------- */
+/* ---- Pills: barely-there tiles, one colour for everything ---------------- */
 
 #custom-menu,
 #window,
@@ -33,152 +35,109 @@ tooltip label {
 #memory,
 #disk,
 #workspaces,
-#mpris,
 #demo,
-#custom-updates,
-#custom-notifications,
+#hub,
 #clock,
 #custom-power {
   margin: 5px 3px;
-  padding: 0 10px;
-  border-radius: 9px;
-  background: alpha(@surface0, 0.7);
-  color: @text;
-  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  padding: 0 8px;
+  border-radius: 5px;
+  background: alpha(@overlay0, 0.3);
+  color: @main;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
-/* Hover: a lifted surface with an accent tint. */
 #custom-menu:hover,
 #cpu:hover,
 #memory:hover,
 #disk:hover,
-#mpris:hover,
-#custom-updates:hover,
-#custom-notifications:hover,
-#clock:hover {
-  background: alpha(@surface1, 0.9);
-  color: @lavender;
-  box-shadow: inset 0 -2px alpha(@mauve, 0.8);
+#clock:hover,
+#custom-power:hover {
+  background: alpha(@overlay0, 0.6);
 }
 
 /* ---- Left ---------------------------------------------------------------- */
 
-#custom-menu {
-  margin-left: 6px;
-  padding: 0 12px 0 10px;
-  color: @mauve;
-  font-size: 16px;
-}
-#custom-menu:hover {
-  background: @mauve;
-  color: @crust;
-  box-shadow: none;
-}
+#custom-menu { margin-left: 6px; }
 
 #window { color: @subtext1; }
-window#waybar.empty #window { background: transparent; color: @overlay0; }
+window#waybar.empty #window { background: transparent; color: alpha(@main, 0.4); }
 
-#custom-arrow-right {
+#custom-arrow-right,
+#custom-arrow-left {
   margin: 0 4px;
-  color: @overlay1;
+  color: alpha(@main, 0.5);
   transition: color 0.25s ease;
 }
-#custom-arrow-right:hover { color: @mauve; }
+#custom-arrow-right:hover,
+#custom-arrow-left:hover { color: @main; }
 
-#cpu    { color: @blue; }
-#memory { color: @green; }
-#disk   { color: @peach; }
-
-/* ---- Workspaces ---------------------------------------------------------- */
+/* ---- Workspaces: dim labels, the active one simply lights up ------------- */
 
 #workspaces {
-  padding: 1px 3px;
-  background: alpha(@mantle, 0.9);
-  border: 1px solid alpha(@surface0, 0.9);
+  padding: 0 3px;
+  background: alpha(@main, 0.06);
 }
 
 #workspaces button {
   /* Same size in every state: only colors change, so the bar never relayouts. */
   min-width: 20px;
-  margin: 0 1px;
-  padding: 0 6px;
-  border-radius: 7px;
-  color: @subtext0;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  padding: 0 4px;
+  color: alpha(@main, 0.35);
+  transition: color 0.3s ease;
 }
 
-/* Free desktops fade back; occupied ones stay readable. */
-#workspaces button.empty { color: @surface2; }
-
-#workspaces button:hover {
-  background-color: alpha(@surface1, 0.9);
-  color: @lavender;
-}
-
-#workspaces button.active {
-  color: @crust;
-  background-color: @mauve;
-}
-
-#workspaces button.urgent {
-  color: @crust;
-  background-color: @red;
-}
+#workspaces button.empty { color: alpha(@main, 0.2); }
+#workspaces button:hover { color: @subtext1; }
+#workspaces button.active { color: @main; }
+#workspaces button.urgent { color: @red; }
 
 /* ---- Right --------------------------------------------------------------- */
 
-#mpris { color: @pink; }
-#mpris.paused { color: @overlay1; }
-
-#demo { padding: 0 4px; }
+#demo,
+#hub { padding: 0 4px; }
 
 #tray { padding: 0 6px; }
 #tray > .needs-attention { -gtk-icon-effect: highlight; }
 
 #pulseaudio,
 #language,
-#idle_inhibitor {
+#idle_inhibitor,
+#custom-updates,
+#custom-notifications {
   margin: 3px 1px;
-  padding: 0 7px;
-  border-radius: 7px;
+  padding: 0 6px;
+  border-radius: 5px;
+  color: @main;
   transition: background 0.25s ease, color 0.25s ease;
 }
 #pulseaudio:hover,
 #language:hover,
-#idle_inhibitor:hover {
-  background: alpha(@surface1, 0.9);
+#idle_inhibitor:hover,
+#custom-updates:hover,
+#custom-notifications:hover {
+  background: alpha(@overlay0, 0.5);
 }
 
-#pulseaudio { color: @sapphire; }
-#pulseaudio.muted { color: @overlay0; }
-#language { color: @lavender; min-width: 22px; }
-#idle_inhibitor { color: @overlay1; }
-#idle_inhibitor.activated { color: @yellow; }
+#pulseaudio.muted,
+#pulseaudio.mic.source-muted { color: alpha(@main, 0.4); }
+#language { min-width: 22px; }
+#idle_inhibitor { color: alpha(@main, 0.5); }
+#idle_inhibitor.activated { color: @main; }
 
-#custom-updates { color: @peach; }
 #custom-updates.many { color: @red; }
 
-#custom-notifications { color: @mauve; }
 #custom-notifications.notification,
-#custom-notifications.dnd-notification { color: @peach; }
+#custom-notifications.dnd-notification { color: @mauve; }
 
-#clock { color: @lavender; }
-
-#custom-power {
-  margin-right: 6px;
-  color: @red;
-}
-#custom-power:hover {
-  background-color: @red;
-  color: @crust;
-}
+#custom-power { margin-right: 6px; }
 
 /* ---- Tray menus (they inherit the reset above) --------------------------- */
 
 menu {
-  background: @base;
-  color: @text;
-  border: 1px solid @surface1;
+  background: rgba(0, 0, 0, 0.85);
+  color: @main;
+  border: 1px solid alpha(@main, 0.25);
   border-radius: 8px;
   padding: 6px;
 }
@@ -189,17 +148,14 @@ menu menuitem {
 }
 menu menuitem label {
   font-family: "Adwaita Sans", sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: normal;
   color: inherit;
 }
-menu menuitem:hover {
-  background: @surface0;
-  color: @lavender;
-}
-menu menuitem:disabled { color: @overlay0; }
+menu menuitem:hover { background: alpha(@overlay0, 0.5); }
+menu menuitem:disabled { color: alpha(@main, 0.4); }
 menu separator {
-  background: @surface1;
+  background: alpha(@main, 0.15);
   min-height: 1px;
   margin: 4px 8px;
 }
@@ -208,8 +164,8 @@ menu radio {
   min-width: 14px;
   min-height: 14px;
   margin-right: 8px;
-  border: 1px solid @overlay0;
+  border: 1px solid alpha(@main, 0.5);
   border-radius: 3px;
 }
 menu check:checked,
-menu radio:checked { background: @mauve; }
+menu radio:checked { background: @main; }

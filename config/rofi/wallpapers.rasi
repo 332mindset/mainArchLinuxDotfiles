@@ -1,42 +1,65 @@
 @theme "themes/adi-type1-style5.rasi"
 
-window { width: 80%; }
-mainbox { spacing: 16px; }
+/* Hyprlust-style picker: see-through dark glass (blurred by Hyprland), a thin light frame
+   and dim cards; colours follow the wallpaper via matugen-colors.rasi. */
+window {
+    width: 75%;
+    border: 2px solid;
+    border-radius: 10px;
+    border-color: @foreground;
+    background-color: #0000004d;
+}
+mainbox { spacing: 0; padding: 10px; background-color: transparent; }
 mode-switcher { enabled: false; }
-entry { placeholder: "Search wallpapers…"; }
-textbox { horizontal-align: 0.5; }
+message { enabled: false; }
+inputbar {
+    padding: 5px;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+    children: [ entry ];
+}
+entry {
+    placeholder: "";
+    background-color: transparent;
+    text-color: #ffffff4d;
+}
 
 /* One horizontal strip of portrait cards; thumbnails come pre-cropped and rounded. */
 listview {
     layout: vertical;
     flow: horizontal;
-    columns: 7;
+    columns: 5;
     lines: 1;
     fixed-columns: true;
-    spacing: 14px;
+    spacing: 20px;
+    padding: 26px 36px;
+    border: 0;
     scrollbar: false;
     fixed-height: true;
+    background-color: transparent;
 }
 element {
     orientation: vertical;
     children: [ element-icon, element-text ];
-    spacing: 8px;
-    padding: 6px;
-    border-radius: 16px;
+    spacing: 14px;
+    padding: 10px;
+    border: 0;
+    border-radius: 10px;
 }
 element normal.normal, element alternate.normal,
 element normal.active, element alternate.active {
-    background-color: transparent;
-    text-color: @foreground-colour;
+    background-color: #00000033;
+    text-color: @foreground;
 }
-/* The wallpaper currently on the desktop gets a green label. */
-element normal.active, element alternate.active { text-color: @active-background; }
 element selected.normal, element selected.active {
-    background-color: @selected-normal-background;
-    text-color: @selected-normal-foreground;
+    background-color: #00000080;
+    text-color: @foreground;
 }
-element-icon { size: 320px; horizontal-align: 0.5; expand: false; }
+element-icon { size: 300px; horizontal-align: 0.5; expand: false; background-color: transparent; }
 element-text {
-    horizontal-align: 0.5;
-    font: "JetBrainsMono Nerd Font 9";
+    horizontal-align: 0;
+    background-color: transparent;
+    text-color: inherit;
+    font: "Iosevka Nerd Font 13";
 }

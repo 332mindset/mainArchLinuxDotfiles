@@ -23,8 +23,18 @@
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
     "tooltip-format": "{desc} | {volume}%"
   },
+  "pulseaudio#mic": {
+    "format": "{format_source}",
+    "format-source": "󰍬",
+    "format-source-muted": "󰍭",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click-right": "pavucontrol -t 4",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
+    "tooltip-format": "{source_desc} | {source_volume}%"
+  },
   "tray": {
-    "icon-size": 16,
+    "icon-size": 18,
     "spacing": 4
   },
   "cpu": {
@@ -100,9 +110,7 @@
     "orientation": "inherit",
     "modules": [
       "tray",
-      "pulseaudio",
-      "hyprland/language",
-      "idle_inhibitor"
+      "hyprland/language"
     ]
   },
   "hyprland/language": {
@@ -120,25 +128,6 @@
     },
     "tooltip-format-activated": "Idle inhibitor on: the screen stays awake",
     "tooltip-format-deactivated": "Idle inhibitor off"
-  },
-  "mpris": {
-    "format": "{player_icon} {dynamic}",
-    "format-paused": "{status_icon} {dynamic}",
-    "dynamic-order": [
-      "artist",
-      "title"
-    ],
-    "dynamic-separator": " — ",
-    "max-length": 42,
-    "player-icons": {
-      "default": "",
-      "spotify": "",
-      "firefox": ""
-    },
-    "status-icons": {
-      "paused": "󰐎"
-    },
-    "tooltip-format": "{dynamic}"
   },
   "custom/notifications": {
     "format": "{icon}",
@@ -158,12 +147,23 @@
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw"
   },
+  "custom/arrow-left": {
+    "format": "󰁏",
+    "tooltip": false
+  },
   "group/hub": {
     "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": false
+    },
     "modules": [
+      "custom/arrow-left",
+      "pulseaudio",
+      "pulseaudio#mic",
+      "idle_inhibitor",
       "custom/updates",
-      "custom/notifications",
-      "clock"
+      "custom/notifications"
     ]
   },
   "custom/updates": {
