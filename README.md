@@ -1,7 +1,7 @@
 <h1 align="center">Arch Linux + Hyprland dotfiles</h1>
 
 <p align="center">
-  <img src="assets/preview.png" alt="Hyprland desktop with Waybar, Kitty running Fastfetch and Neovim, and Cava" width="100%">
+  <img src="assets/preview-matugen.png" alt="Hyprland desktop with Waybar, Kitty running Fastfetch and Neovim, and Cava" width="100%">
 </p>
 
 <p align="center">
