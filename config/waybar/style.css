@@ -1,5 +1,5 @@
 /* Minimal translucent bar after Hyprlust's "[Dark] Purpl" (https://github.com/NischalDawadi/Hyprlust).
-   Monochrome greys from matugen (scheme-monochrome); the wallpaper shows through the blur. */
+   Monochrome greys from matugen.css (static palette); the wallpaper shows through the blur. */
 @import "matugen.css";
 
 @define-color main @text;
@@ -98,13 +98,17 @@ window#waybar.empty #window { background: transparent; color: alpha(@main, 0.4);
 #hub { padding: 0 4px; }
 
 #tray { padding: 0 6px; }
-#tray > .needs-attention { -gtk-icon-effect: highlight; }
+/* Muted tray so coloured app icons don't break the monochrome; full colour on hover. */
+#tray > * { opacity: 0.55; -gtk-icon-effect: dim; transition: opacity 0.25s ease; }
+#tray > *:hover { opacity: 1; -gtk-icon-effect: none; }
+#tray > .needs-attention { opacity: 1; -gtk-icon-effect: highlight; }
 
 #pulseaudio,
 #language,
 #idle_inhibitor,
 #custom-updates,
-#custom-notifications {
+#custom-notifications,
+#custom-binds {
   margin: 3px 1px;
   padding: 0 6px;
   border-radius: 5px;
@@ -115,7 +119,8 @@ window#waybar.empty #window { background: transparent; color: alpha(@main, 0.4);
 #language:hover,
 #idle_inhibitor:hover,
 #custom-updates:hover,
-#custom-notifications:hover {
+#custom-notifications:hover,
+#custom-binds:hover {
   background: alpha(@overlay0, 0.5);
 }
 

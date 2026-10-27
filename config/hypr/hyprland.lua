@@ -9,7 +9,7 @@
 -- Create your files separately and then require them like this:
 -- require("myColors")
 
--- Border colours from the wallpaper (matugen writes colors.lua).
+-- Border colours (static palette in colors.lua).
 local ok, colors = pcall(dofile, os.getenv("HOME") .. "/.config/hypr/colors.lua")
 if not ok then
     colors = { active_border = { "rgba(cba6f7ee)", "rgba(89b4faee)" }, inactive_border = "rgba(313244aa)" }
@@ -124,7 +124,7 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 10,
+        rounding       = 16,
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows

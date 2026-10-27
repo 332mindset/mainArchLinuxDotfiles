@@ -1,7 +1,7 @@
 @theme "themes/adi-type1-style5.rasi"
 
 /* Hyprlust-style picker: see-through dark glass (blurred by Hyprland), a thin light frame
-   and dim cards; colours follow the wallpaper via matugen-colors.rasi. */
+   and dim cards; colours from matugen-colors.rasi. */
 window {
     width: 75%;
     border: 2px solid;

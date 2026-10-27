@@ -1,5 +1,5 @@
 configuration {
-    modi: "drun,configs:@HOME@/.config/rofi/scripts/config-modules.py,filebrowser";
+    modi: "drun,configs:@HOME@/.config/rofi/scripts/config-modules.py";
     show-icons: true;
     icon-theme: "Papirus-Dark";
     application-fallback-icon: "application-x-executable";

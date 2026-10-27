@@ -81,12 +81,18 @@
     "on-click": "rofi -show drun"
   },
   "hyprland/window": {
-    "format": "{title}",
-    "max-length": 24,
+    "format": "{class}",
+    "max-length": 20,
     "separate-outputs": true,
     "fallback": "~empty",
+    "tooltip-format": "{title}",
     "rewrite": {
-      "^$": "~empty"
+      "^$": "~empty",
+      "^brave-browser$": "brave",
+      "^brave-[a-z]{32}-.*$": "brave app",
+      "^code(-oss)?$": "vscode",
+      "^org\\.kde\\.(.*)$": "$1",
+      "^org\\.telegram\\.desktop$": "telegram"
     }
   },
   "custom/arrow-right": {
@@ -110,7 +116,8 @@
     "orientation": "inherit",
     "modules": [
       "tray",
-      "hyprland/language"
+      "hyprland/language",
+      "pulseaudio"
     ]
   },
   "hyprland/language": {
@@ -159,12 +166,18 @@
     },
     "modules": [
       "custom/arrow-left",
-      "pulseaudio",
       "pulseaudio#mic",
       "idle_inhibitor",
       "custom/updates",
-      "custom/notifications"
+      "custom/notifications",
+      "custom/binds"
     ]
+  },
+  "custom/binds": {
+    "exec": "~/.config/waybar/scripts/binds.sh",
+    "return-type": "json",
+    "interval": "once",
+    "format": "{}"
   },
   "custom/updates": {
     "exec": "~/.config/waybar/scripts/updates.sh",

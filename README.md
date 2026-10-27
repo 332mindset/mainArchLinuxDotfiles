@@ -1,7 +1,7 @@
 <h1 align="center">Arch Linux + Hyprland dotfiles</h1>
 
 <p align="center">
-  <img src="assets/preview-matugen.png" alt="Hyprland desktop with Waybar, Kitty running Fastfetch and Neovim, and Cava" width="100%">
+  <img src="assets/preview-ronin.png" alt="Hyprland desktop with Waybar, Kitty running Fastfetch with a Pokémon, a terminal clock and Cava" width="100%">
 </p>
 
 <p align="center">
@@ -11,11 +11,11 @@
   <a href="https://www.youtube.com/watch?v=beIpVuMDd-8"><img src="https://img.shields.io/badge/Showcase-YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="Showcase on YouTube"></a>
 </p>
 
-My desktop configuration with colors taken from the wallpaper
-([matugen](https://github.com/InioX/matugen), monochrome scheme): translucent
-windows, smooth animations, a minimal frosted-glass Waybar, Rofi menus, a glass
-lock screen and a matching terminal. GTK apps and Dolphin use
-[Catppuccin Mocha](https://catppuccin.com).
+My desktop configuration: a static monochrome palette with translucent
+windows, smooth animations, a minimal frosted-glass Waybar, a Rofi sidebar
+launcher and a glass lock screen. The terminal adds
+[Catppuccin Mocha](https://catppuccin.com) pastels on top of the grey base;
+GTK apps use Catppuccin Mocha as well.
 
 [Watch the desktop showcase on YouTube](https://www.youtube.com/watch?v=beIpVuMDd-8).
 
@@ -30,25 +30,23 @@ only previews the changes; add `--apply` to install the files.
 | Component | Configuration |
 | --- | --- |
 | Hyprland | Lua config, animations, window rules and keybindings |
-| Waybar | Workspaces A–F, tray, volume and microphone, keyboard layout (EN/RU), idle inhibitor, pending updates (pacman + AUR) and notifications |
-| Rofi | Launcher (apps, configuration folders, file browser), clipboard, wallpaper carousel and power menu |
-| Kitty + Zsh | Wallpaper-colored terminal, oh-my-zsh prompt and a Fastfetch welcome card with a random pixel-art image |
+| Waybar | Workspaces A–F, muted tray, volume, keyboard layout (EN/RU), a drawer with microphone, idle inhibitor, pending updates (pacman + AUR), notifications and a hover cheat sheet of the less obvious keybindings |
+| Rofi | Full-height sidebar launcher (apps, configuration folders), clipboard, wallpaper carousel and power menu |
+| Kitty + Zsh | Catppuccin Mocha colors, a two-line oh-my-zsh prompt (path, git branch, exit code, time) and a Fastfetch welcome card with a random Pokémon |
 | Hyprlock | Glass lock screen: blurred desktop, clock, avatar and now playing with cover art and player controls |
 | SwayNC | Notification popups and control center |
 | Cava | Standalone audio visualizer |
-| Dolphin | Catppuccin stylesheet, KDE color scheme and launcher |
+| Dolphin | Monochrome stylesheet, KDE color scheme and launcher |
 | GTK + Fontconfig | Catppuccin GTK theme, Papirus icons with mauve folders, Bibata cursors and fonts |
-| Matugen | Recolors Waybar, Kitty, Rofi, SwayNC, Hyprland borders, Hyprlock and Firefox after every wallpaper change |
 | Scripts | Clipboard history, screenshots with a Satty editor, color picker, wallpaper switching and power menu |
 
 The wallpaper picker reads `~/Pictures/Wallpapers`. Wallpapers from the
 [`wallpapers`](wallpapers) folder are installed there; add your own images
 for more choices. On first open the picker caches rounded preview cards in
-`~/.cache/wallpaper-picker`. After each change it runs `matugen` with
-[`config/matugen/config.toml`](config/matugen/config.toml); the files it writes
-(`waybar/matugen.css`, `kitty/matugen.conf`, `hypr/colors.lua`, …) ship with a
-starting palette. The Firefox template targets my profile folder: change its
-`output_path` to your own profile's `chrome/` folder, or remove that template.
+`~/.cache/wallpaper-picker`. Changing the wallpaper does not recolor anything:
+the palette is static. The color files kept their old names
+(`waybar/matugen.css`, `kitty/matugen.conf`, `rofi/themes/matugen-colors.rasi`,
+`hypr/colors.lua`, …); edit them directly.
 
 ## Compatibility
 
@@ -90,14 +88,15 @@ sudo pacman -Syu --needed \
   fastfetch dolphin fontconfig ttf-jetbrains-mono-nerd ttf-iosevka-nerd adwaita-fonts \
   breeze-icons papirus-icon-theme glib2 util-linux procps-ng coreutils \
   xdg-desktop-portal-hyprland ffmpeg imagemagick curl \
-  pacman-contrib hyprpicker satty matugen
+  pacman-contrib hyprpicker satty
 ```
 
-The Catppuccin GTK theme, folder colors and Bibata cursors come from the AUR
+The Catppuccin GTK theme, folder colors, Bibata cursors and the Pokémon
+sprites (`krabby`) come from the AUR
 (shown with [yay](https://github.com/Jguer/yay); any AUR helper works):
 
 ```sh
-yay -S --needed catppuccin-gtk-theme-mocha bibata-cursor-theme-bin papirus-folders-catppuccin-git
+yay -S --needed catppuccin-gtk-theme-mocha bibata-cursor-theme-bin papirus-folders-catppuccin-git krabby-bin
 ```
 
 `ffmpeg` renders wallpaper previews; `imagemagick` draws the lock screen cover
@@ -156,10 +155,8 @@ The installer leaves `~/.zshrc` and your login configuration alone.
    chsh -s /usr/bin/zsh
    ```
 
-   The welcome card picks a random PNG from `~/.config/fastfetch/logos`.
-   Add your own images there; square ones with a transparent background look
-   best. Re-running the installer replaces this folder, so your own images
-   end up in the backup.
+   The welcome card shows a random Pokémon from `krabby`; without it, Fastfetch
+   falls back to the Arch logo in `~/.config/fastfetch/arch.txt`.
 5. Review `~/.config/hypr/hyprland.lua`. Keyboard layouts are **US + Russian**;
    **Super + Space** switches them. Set `kb_layout = "us"` and `kb_options = ""`
    if you only want English.
@@ -235,10 +232,11 @@ have no backup. Your other configuration folders are not part of this install.
 Existing source comments and attributions are preserved:
 
 - Waybar layout is based on [JaKooLit](https://github.com/JaKooLit)'s styling.
-- Colors: generated from the wallpaper by [matugen](https://github.com/InioX/matugen);
-  GTK and Dolphin use the [Catppuccin](https://github.com/catppuccin/catppuccin) Mocha palette.
+- Colors: a monochrome palette originally generated by [matugen](https://github.com/InioX/matugen);
+  the terminal and GTK use the [Catppuccin](https://github.com/catppuccin/catppuccin) Mocha palette.
+- Pokémon sprites: [krabby](https://github.com/yannjor/krabby).
 - The bar, Rofi and notification look follows
   [Hyprlust](https://github.com/NischalDawadi/Hyprlust)'s "[Dark] Purpl".
 - The Rofi theme is based on
   [adi1090x/rofi](https://github.com/adi1090x/rofi/blob/master/files/launchers/type-1/style-5.rasi)
-  (type-1, style-5), recolored with Catppuccin Mocha.
+  (type-1, style-5), reshaped into a glass sidebar.
