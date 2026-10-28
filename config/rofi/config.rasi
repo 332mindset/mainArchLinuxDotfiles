@@ -7,4 +7,4 @@ configuration {
     drun-display-format: "{name}";
 }
 // @theme "themes/sidebar-gray.rasi"
-@theme "themes/adi-type1-style5.rasi"
+@theme "themes/pill-grid.rasi"

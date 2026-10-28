@@ -1,6 +1,6 @@
 @theme "themes/adi-type1-style5.rasi"
 
-window { width: 560px; }
+window { location: center; anchor: center; width: 560px; height: 0; }
 mode-switcher { enabled: false; }
 entry { placeholder: "Choose an action…"; }
 textbox { horizontal-align: 0.5; }
@@ -28,3 +28,9 @@ element normal.normal, element alternate.normal {
 }
 element-icon { size: 64px; horizontal-align: 0.5; expand: false; }
 element-text { horizontal-align: 0.5; }
+/* The base theme paints selected and idle tiles the same; make the keyboard choice visible. */
+element { border: 2px solid; border-color: transparent; }
+element selected.normal, element selected.active, element selected.urgent {
+    background-color: #e2e2e247;
+    border-color: @selected;
+}

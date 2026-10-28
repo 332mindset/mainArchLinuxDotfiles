@@ -1,0 +1,120 @@
+/**
+ * Pill Grid — based on adi1090x type-2 style-5,
+ * using the shared glass palette from matugen-colors.rasi.
+ **/
+
+@import "matugen-colors.rasi"
+
+configuration {
+    show-icons:                  true;
+    display-drun:                "Applications";
+    display-configs:             "Configs";
+    drun-display-format:         "{name}";
+}
+
+* {
+    font:                        "Iosevka Nerd Font 11";
+    background-color:            transparent;
+    text-color:                  var(foreground);
+}
+
+window {
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    fullscreen:                  false;
+    width:                       700px;
+    border:                      1px solid;
+    border-color:                var(glass-border);
+    border-radius:               16px;
+    background-color:            var(glass);
+    cursor:                      "default";
+}
+
+mainbox {
+    spacing:                     10px;
+    padding:                     30px;
+    children:                    [ "inputbar", "listview" ];
+}
+
+inputbar {
+    spacing:                     0px;
+    border-radius:               16px;
+    background-color:            var(tile);
+    children:                    [ "prompt", "entry" ];
+}
+prompt {
+    padding:                     12px;
+    border-radius:               16px;
+    background-color:            var(selected);
+    text-color:                  #131313;
+}
+entry {
+    padding:                     12px;
+    cursor:                      text;
+    placeholder:                 "Search...";
+    placeholder-color:           var(dim);
+}
+
+listview {
+    columns:                     2;
+    lines:                       7;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    fixed-height:                true;
+    fixed-columns:               true;
+    spacing:                     10px;
+    cursor:                      "default";
+}
+
+element {
+    spacing:                     10px;
+    padding:                     5px;
+    border-radius:               16px;
+    background-color:            var(tile);
+    cursor:                      pointer;
+}
+element normal.normal,
+element alternate.normal,
+element normal.urgent,
+element alternate.urgent,
+element normal.active,
+element alternate.active {
+    background-color:            var(tile);
+}
+element selected.normal,
+element selected.urgent,
+element selected.active {
+    border:                      0px 5px 0px 5px;
+    border-color:                var(selected);
+    background-color:            #e2e2e233;
+    text-color:                  var(selected);
+}
+element-icon {
+    padding:                     0px 0px 0px 10px;
+    size:                        32px;
+    text-color:                  inherit;
+    cursor:                      inherit;
+}
+element-text {
+    text-color:                  inherit;
+    highlight:                   inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}
+
+error-message {
+    padding:                     15px;
+    border:                      1px solid;
+    border-radius:               16px;
+    border-color:                var(glass-border);
+    background-color:            var(background);
+}
+textbox {
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    highlight:                   none;
+}

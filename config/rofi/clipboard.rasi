@@ -1,8 +1,8 @@
+/* Clipboard picker in the launcher's pill-grid style: one column, wider pills for long entries. */
+@theme "themes/pill-grid.rasi"
 
-// @theme "themes/sidebar-gray.rasi"
-@theme "themes/adi-type1-style5.rasi"
-mainbox { children: [ inputbar, message, listview ]; }
-mode-switcher { enabled: false; }
-entry { placeholder: "Search clipboard…"; }
-listview { lines: 9; }
-element { children: [ element-text ]; }
+window   { width: 760px; }
+mainbox  { children: [ inputbar, message, listview ]; }
+entry    { placeholder: "Search clipboard..."; }
+listview { columns: 1; lines: 8; }
+element  { padding: 10px 14px; children: [ element-text ]; }

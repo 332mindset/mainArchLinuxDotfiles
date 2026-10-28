@@ -6,7 +6,8 @@ for tool in cliphist wl-copy; do
         exit 1
     fi
 done
-history=$(cliphist list)
+# Only the id column is decoded, so the visible text can be prettified for images.
+history=$(cliphist list | sed -E 's/\[\[ binary data ([0-9.]+ [KMG]?i?B) ([a-z]+) ([0-9]+)x([0-9]+) \]\]/󰋩  image · \2 \3×\4 · \1/')
 if [[ -z "$history" ]]; then
     notify-send "Clipboard" "History is empty. Copy some text or an image." || true
     exit 0
