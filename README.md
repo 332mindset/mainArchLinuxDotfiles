@@ -1,84 +1,61 @@
-<h1 align="center">Arch Linux + Hyprland dotfiles</h1>
+<div align="center">
 
-<p align="center">
-  <img src="assets/preview-ronin.png" alt="Hyprland desktop with Waybar, Kitty running Fastfetch with a Pokémon, a terminal clock and Cava" width="100%">
-</p>
+<img src="assets/banner.svg" alt="Arch × Hyprland — monochrome glass rice" width="100%">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Arch_Linux-1793D1?style=flat-square&logo=archlinux&logoColor=white" alt="Arch Linux">
-  <img src="https://img.shields.io/badge/Hyprland-0.56.2-58E1FF?style=flat-square&logo=hyprland&logoColor=white" alt="Hyprland 0.56.2">
-  <img src="https://img.shields.io/badge/Wayland-FFBC00?style=flat-square&logo=wayland&logoColor=black" alt="Wayland">
-  <a href="https://www.youtube.com/watch?v=beIpVuMDd-8"><img src="https://img.shields.io/badge/Showcase-YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="Showcase on YouTube"></a>
-</p>
+<br><br>
 
-My desktop configuration: a static monochrome palette with translucent
-windows, smooth animations, a minimal frosted-glass Waybar, a Rofi sidebar
-launcher and a glass lock screen. The terminal adds
-[Catppuccin Mocha](https://catppuccin.com) pastels on top of the grey base;
-GTK apps use Catppuccin Mocha as well.
+[![showcase](https://img.shields.io/badge/watch_showcase-18181b?style=for-the-badge&logo=youtube&logoColor=e0444c)](https://www.youtube.com/watch?v=beIpVuMDd-8)
+[![hyprland](https://img.shields.io/badge/hyprland-0.56.2-18181b?style=for-the-badge&logo=hyprland&logoColor=b4c3ff&labelColor=18181b)](https://hypr.land)
+[![arch](https://img.shields.io/badge/arch_linux-18181b?style=for-the-badge&logo=archlinux&logoColor=e6e6ea)](https://archlinux.org)
+[![stars](https://img.shields.io/github/stars/332mindset/mainArchLinuxDotfiles?style=for-the-badge&logo=starship&logoColor=b4c3ff&label=stars&labelColor=18181b&color=18181b)](https://github.com/332mindset/mainArchLinuxDotfiles/stargazers)
 
-[Watch the desktop showcase on YouTube](https://www.youtube.com/watch?v=beIpVuMDd-8).
+<br>
 
-**Install the dependencies below before applying these dotfiles.**
-`install.py` copies configuration files, scripts and wallpapers and backs up
-the files it replaces. Package installation, graphics driver setup and shell
-integration are manual steps described below. Running `python3 install.py`
-only previews the changes; add `--apply` to install the files.
+<img src="assets/preview-ronin.png" alt="Hyprland desktop with Waybar, Kitty running Fastfetch with a Pokémon, a terminal clock and Cava" width="100%">
 
-## What's included
+<sub>monochrome glass · smooth animations · catppuccin pastels in the terminal</sub>
 
-| Component | Configuration |
-| --- | --- |
-| Hyprland | Lua config, animations, window rules and keybindings |
-| Waybar | Workspaces A–F, muted tray, volume, keyboard layout (EN/RU), a drawer with microphone, idle inhibitor, pending updates (pacman + AUR), notifications and a hover cheat sheet of the less obvious keybindings |
-| Rofi | Full-height sidebar launcher (apps, configuration folders), clipboard, wallpaper carousel and power menu |
-| Kitty + Zsh | Catppuccin Mocha colors, a two-line oh-my-zsh prompt (path, git branch, exit code, time) and a Fastfetch welcome card with a random Pokémon |
-| Hyprlock | Glass lock screen: blurred desktop, clock, avatar and now playing with cover art and player controls |
-| SwayNC | Notification popups and control center |
-| Cava | Standalone audio visualizer |
-| Dolphin | Monochrome stylesheet, KDE color scheme and launcher |
-| GTK + Fontconfig | Catppuccin GTK theme, Papirus icons with mauve folders, Bibata cursors and fonts |
-| Scripts | Clipboard history, screenshots with a Satty editor, color picker, wallpaper switching and power menu |
+</div>
 
-The wallpaper picker reads `~/Pictures/Wallpapers`. Wallpapers from the
-[`wallpapers`](wallpapers) folder are installed there; add your own images
-for more choices. On first open the picker caches rounded preview cards in
-`~/.cache/wallpaper-picker`. Changing the wallpaper does not recolor anything:
-the palette is static. The color files kept their old names
-(`waybar/matugen.css`, `kitty/matugen.conf`, `rofi/themes/matugen-colors.rasi`,
-`hypr/colors.lua`, …); edit them directly.
+<br>
 
-## Compatibility
+## ✦ inside
 
-Prepared from an Arch Linux installation with Hyprland **0.56.2**, Waybar 0.15.0,
-Rofi 2.0.0, Kitty 0.49.2, Zsh 5.9, Hyprlock 0.9.6, SwayNC 0.12.6, Cava 1.0.0 and
-awww 0.12.1. These are the source machine's versions, not a guarantee that
-every future update will behave the same.
+<table>
+<tr>
+<td width="50%" valign="top">
 
-This config uses Hyprland's **Lua API** (`hyprland.lua`). Older installations
-that only support `hyprland.conf` cannot use it directly.
-See the [Hyprland configuration documentation](https://wiki.hypr.land/configuring/core/).
+**hyprland** — lua config, animations, rules<br>
+**waybar** — frosted glass, workspaces A–F<br>
+**rofi** — pill launcher, clipboard, wallpapers, power<br>
+**hyprlock** — glass lock with now playing
 
-The shared version selects monitor modes automatically. NVIDIA overrides from
-the original machine are commented out. The original two-monitor layout is in
-[`examples/monitors.lua`](examples/monitors.lua).
+</td>
+<td width="50%" valign="top">
 
-This setup expects Zsh with oh-my-zsh, a standard home path without spaces or special
-characters, and the default `~/.config` location.
+**kitty + zsh** — fastfetch with a random pokémon<br>
+**swaync · cava** — notifications, visualizer<br>
+**dolphin · gtk** — catppuccin mocha, papirus, bibata<br>
+**scripts** — screenshots + satty, color picker
 
-## Dependencies
+</td>
+</tr>
+</table>
 
-These instructions start from an already installed Arch Linux system.
-Review and install the packages below before following the installation steps.
-The installer does not install packages or configure your graphics drivers.
+## ✦ install
 
-You can apply these dotfiles from either a graphical session or a TTY.
-On a minimal Arch installation with only a TTY, first set up a regular user,
-working internet, access to `sudo`, and the graphics drivers appropriate for
-your GPU. Then install the dependencies below (including Git and Python),
-apply the dotfiles as that user, and launch Hyprland using the command in the
-installation section. The Python installer alone does not prepare a bare
-Arch installation for a graphical desktop.
+```sh
+git clone https://github.com/332mindset/mainArchLinuxDotfiles.git
+cd mainArchLinuxDotfiles
+python3 install.py           # preview, changes nothing
+python3 install.py --apply   # install (no sudo), old configs are backed up
+```
+
+Install the packages below first. Then log in to Hyprland and press **Super + F** to pick a wallpaper.
+
+<details>
+<summary><b>📦 packages</b></summary>
+<br>
 
 ```sh
 sudo pacman -Syu --needed \
@@ -89,154 +66,101 @@ sudo pacman -Syu --needed \
   breeze-icons papirus-icon-theme glib2 util-linux procps-ng coreutils \
   xdg-desktop-portal-hyprland ffmpeg imagemagick curl \
   pacman-contrib hyprpicker satty
-```
 
-The Catppuccin GTK theme, folder colors, Bibata cursors and the Pokémon
-sprites (`krabby`) come from the AUR
-(shown with [yay](https://github.com/Jguer/yay); any AUR helper works):
-
-```sh
 yay -S --needed catppuccin-gtk-theme-mocha bibata-cursor-theme-bin papirus-folders-catppuccin-git krabby-bin
 ```
 
-`ffmpeg` renders wallpaper previews; `imagemagick` draws the lock screen cover
-placeholder and color picker swatches; `pacman-contrib` provides `checkupdates`
-for the Waybar updates counter. Optional: `brightnessctl` enables the brightness keys; `code` (Visual Studio
-Code) enables the Rofi **Configs** tab. The desktop itself does not need VS Code.
+Optional: `brightnessctl` for brightness keys, `code` for the Rofi **Configs** tab.
+On a bare TTY install, set up your user, network, `sudo` and GPU drivers first — the installer doesn't install packages or drivers.
 
-## Installation
+</details>
 
-1. Clone the repository and open its folder:
+<details>
+<summary><b>🛠 after install: zsh, gtk, first launch</b></summary>
+<br>
 
-   ```sh
-   git clone https://github.com/332mindset/mainArchLinuxDotfiles.git
-   cd mainArchLinuxDotfiles
-   ```
+**Zsh** — oh-my-zsh, plugins and the example config (back up your `~/.zshrc` first):
 
-   Alternatively, use **Code → Download ZIP**, extract it, and open a terminal
-   in the extracted folder.
-2. Review the configuration and preview the changes:
+```sh
+git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+git clone --depth 1 https://github.com/catppuccin/zsh-syntax-highlighting ~/.oh-my-zsh/custom/catppuccin-highlighting
+cp examples/zshrc ~/.zshrc
+chsh -s /usr/bin/zsh
+```
 
-   ```sh
-   python3 install.py
-   ```
+**GTK** — Catppuccin folders and the GTK 4 theme:
 
-3. Install as your desktop user, **without sudo**:
+```sh
+sudo papirus-folders -C cat-mocha-mauve --theme Papirus-Dark
+theme=/usr/share/themes/catppuccin-mocha-mauve-standard+default/gtk-4.0
+ln -sfn "$theme/gtk.css" "$theme/gtk-dark.css" "$theme/assets" ~/.config/gtk-4.0/
+```
 
-   ```sh
-   python3 install.py --apply
-   ```
+**Launch** — from a TTY: `start-hyprland -- --config "$HOME/.config/hypr/hyprland.lua"`
 
-The installer copies files into your home directory, fills in your home path
-where the templates contain `@HOME@`, and sets executable permissions on
-scripts. Existing component folders/files are moved to a dated backup under
-`~/.local/state/dotfiles/backups/`. Each listed config folder is replaced as a
-whole, so settings from your old folder remain in the backup. Shared folders
-(`gtk-3.0`, `gtk-4.0`, `fontconfig`) are updated file by file, so other data
-there, such as GTK bookmarks, stays in place.
+Keyboard is **US + RU** (**Super + Space**); set `kb_layout = "us"` in `hyprland.lua` for English only.
 
-Symlinked destinations are refused: if you already manage your configuration
-with Stow or another dotfiles manager, adapt the files through that manager.
-The installer leaves `~/.zshrc` and your login configuration alone.
+</details>
 
-4. Set up Zsh: install oh-my-zsh with its plugins and the Catppuccin
-   highlighting theme, copy the example config and make Zsh your login shell.
-   Back up your current `~/.zshrc` first if you have one.
+<details>
+<summary><b>⌨ keybindings</b></summary>
+<br>
 
-   ```sh
-   git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-   git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions \
-     ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-   git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting \
-     ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-   git clone --depth 1 https://github.com/catppuccin/zsh-syntax-highlighting \
-     ~/.oh-my-zsh/custom/catppuccin-highlighting
-   cp examples/zshrc ~/.zshrc
-   chsh -s /usr/bin/zsh
-   ```
-
-   The welcome card shows a random Pokémon from `krabby`; without it, Fastfetch
-   falls back to the Arch logo in `~/.config/fastfetch/arch.txt`.
-5. Review `~/.config/hypr/hyprland.lua`. Keyboard layouts are **US + Russian**;
-   **Super + Space** switches them. Set `kb_layout = "us"` and `kb_options = ""`
-   if you only want English.
-6. Apply the Catppuccin folder color and the GTK 4 theme (libadwaita apps read
-   it from `~/.config/gtk-4.0`):
-
-   ```sh
-   sudo papirus-folders -C cat-mocha-mauve --theme Papirus-Dark
-   theme=/usr/share/themes/catppuccin-mocha-mauve-standard+default/gtk-4.0
-   ln -sfn "$theme/gtk.css" "$theme/gtk-dark.css" "$theme/assets" ~/.config/gtk-4.0/
-   ```
-
-7. Log out and start Hyprland again when ready. From a TTY, you can use:
-
-   ```sh
-   start-hyprland -- --config "$HOME/.config/hypr/hyprland.lua"
-   ```
-
-8. Press **Super + F** and choose a wallpaper. It will be restored on subsequent
-   sessions after the first successful selection.
-
-## Keybindings
-
-`Super` is the Windows key.
-
-| Keys | Action |
+| keys | action |
 | --- | --- |
-| Super + Q | Open Kitty |
-| Super + C | Close the focused window |
-| Super + E | Open Dolphin |
-| Super + D | Open Rofi |
-| Super + F | Choose a wallpaper |
-| Super + N | Toggle notifications |
-| Super + R | Restart Waybar |
-| Super + L / Super + Shift + D | Lock the screen |
-| Ctrl + Super + V | Clipboard history |
-| Ctrl + End / Ctrl + Shift + End | Area / full screenshot, saved and copied |
-| Ctrl + Alt + End | Area screenshot opened in Satty to annotate |
-| Super + Shift + C | Pick a color on screen and copy its HEX |
-| Super + Shift + E | Power menu |
-| Super + 1…9 | Switch workspace |
-| Super + Shift + 1…9 | Move window to workspace |
-| Super + Space | Switch keyboard layout (EN/RU) |
-| Super + arrows | Move focus |
-| Super + V | Toggle floating |
-| Super + P / Super + J | Pseudotile / toggle split |
-| Super + S / Super + Shift + S | Toggle / move to scratchpad |
-| Super + mouse wheel | Next / previous workspace on this monitor |
-| Super + mouse drag | Move or resize a window |
+| Super + Q / E / D | Kitty / Dolphin / Rofi |
+| Super + C | close window |
+| Super + F | wallpaper picker |
+| Ctrl + Super + V | clipboard history |
+| Super + Shift + E | power menu |
+| Super + L | lock |
+| Super + N | notifications |
+| Super + R | restart Waybar |
+| Ctrl + End / + Shift | area / full screenshot |
+| Ctrl + Alt + End | screenshot → Satty |
+| Super + Shift + C | color picker (HEX) |
+| Super + 1…9 / + Shift | switch / move to workspace |
+| Super + Space | EN / RU |
+| Super + V · P · J | float · pseudotile · split |
+| Super + S / + Shift | scratchpad toggle / move |
+| Super + wheel · drag | workspaces · move / resize |
 
-The clipboard collector stores copied text/images locally; its history is
-runtime data and is not included in this repository.
+</details>
 
-## Troubleshooting and backups
+<details>
+<summary><b>🧩 compatibility & notes</b></summary>
+<br>
 
-Check configuration errors with `hyprctl configerrors`. Reload an already
-running desktop with `~/.config/hypr/scripts/apply-desktop.sh` after checking
-your monitor settings. A fresh session also starts the clipboard collector
-and notification daemon.
+- Built on Hyprland **0.56.2** with the **Lua config** (`hyprland.lua`) — older `hyprland.conf`-only versions won't work.
+- Tested with Waybar 0.15.0, Rofi 2.0.0, Kitty 0.49.2, Hyprlock 0.9.6, SwayNC 0.12.6, Cava 1.0.0, awww 0.12.1.
+- Monitors are auto-detected; the original two-monitor layout is in [`examples/monitors.lua`](examples/monitors.lua).
+- Expects Zsh + oh-my-zsh, default `~/.config` and a home path without spaces.
+- The palette is static — wallpapers don't recolor anything. Colors live in `waybar/matugen.css`, `kitty/matugen.conf`, `rofi/themes/matugen-colors.rasi`, `hypr/colors.lua`.
+- Wallpapers go to `~/Pictures/Wallpapers`; the picker needs **awww**, not hyprpaper.
 
-If symbols look like boxes, check that JetBrainsMono and Iosevka Nerd Fonts are installed.
-The wallpaper picker requires **awww**, not hyprpaper.
+</details>
 
-To restore a previous configuration, use the backup directory printed by the
-installer. It mirrors the replaced paths in your home (for example,
-`BACKUP/.config/hypr` is the old `~/.config/hypr`). From another TTY/session,
-remove or rename the corresponding installed component folder, then copy
-its backed-up version into place. Files that did not exist before installation
-have no backup. Your other configuration folders are not part of this install.
+<details>
+<summary><b>🩹 troubleshooting & restore</b></summary>
+<br>
 
-## Credits
+- Config errors: `hyprctl configerrors`. Reload a running desktop: `~/.config/hypr/scripts/apply-desktop.sh`.
+- Boxes instead of icons → install JetBrainsMono and Iosevka Nerd Fonts.
+- Backups go to `~/.local/state/dotfiles/backups/<date>/` and mirror your home (`BACKUP/.config/hypr` = old `~/.config/hypr`). To restore, remove the installed folder and copy the backup back.
+- Config folders are replaced whole; `gtk-3.0`, `gtk-4.0` and `fontconfig` are updated file by file. Symlinked targets (Stow etc.) are refused. `~/.zshrc` is never touched.
 
-Existing source comments and attributions are preserved:
+</details>
 
-- Waybar layout is based on [JaKooLit](https://github.com/JaKooLit)'s styling.
-- Colors: a monochrome palette originally generated by [matugen](https://github.com/InioX/matugen);
-  the terminal and GTK use the [Catppuccin](https://github.com/catppuccin/catppuccin) Mocha palette.
-- Pokémon sprites: [krabby](https://github.com/yannjor/krabby).
-- The bar, Rofi and notification look follows
-  [Hyprlust](https://github.com/NischalDawadi/Hyprlust)'s "[Dark] Purpl".
-- The Rofi theme is based on
-  [adi1090x/rofi](https://github.com/adi1090x/rofi/blob/master/files/launchers/type-1/style-5.rasi)
-  (type-1, style-5), reshaped into a glass sidebar.
+<br>
+
+<div align="center">
+
+<sub>credits — waybar by <a href="https://github.com/JaKooLit">JaKooLit</a> · look from <a href="https://github.com/NischalDawadi/Hyprlust">Hyprlust</a> · rofi from <a href="https://github.com/adi1090x/rofi">adi1090x</a> · colors <a href="https://github.com/InioX/matugen">matugen</a> + <a href="https://github.com/catppuccin/catppuccin">catppuccin</a> · sprites <a href="https://github.com/yannjor/krabby">krabby</a></sub>
+
+<br><br>
+
+<sub>⭐ if you like the rice, a star helps a lot</sub>
+
+</div>
