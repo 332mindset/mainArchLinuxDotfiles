@@ -103,6 +103,7 @@ window#waybar.empty #window { background: transparent; color: alpha(@main, 0.4);
 #tray > *:hover { opacity: 1; -gtk-icon-effect: none; }
 #tray > .needs-attention { opacity: 1; -gtk-icon-effect: highlight; }
 
+#custom-media,
 #pulseaudio,
 #language,
 #idle_inhibitor,
@@ -115,6 +116,7 @@ window#waybar.empty #window { background: transparent; color: alpha(@main, 0.4);
   color: @main;
   transition: background 0.25s ease, color 0.25s ease;
 }
+#custom-media:hover,
 #pulseaudio:hover,
 #language:hover,
 #idle_inhibitor:hover,

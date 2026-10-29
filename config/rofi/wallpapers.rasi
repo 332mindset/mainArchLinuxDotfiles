@@ -3,15 +3,23 @@
 /* Hyprlust-style picker: see-through dark glass (blurred by Hyprland), a thin light frame
    and dim cards; colours from matugen-colors.rasi. */
 window {
-    width: 75%;
+    /* The base theme pins a full-height sidebar to the left; centre a compact strip instead. */
+    location: center;
+    anchor: center;
+    x-offset: 0;
+    y-offset: 0;
+    width: 1180px;
+    height: 470px;
     border: 2px solid;
     border-radius: 10px;
     border-color: @foreground;
     background-color: #0000004d;
 }
-mainbox { spacing: 0; padding: 10px; background-color: transparent; }
+/* No visible search field: arrows pick a card, typing still filters. */
+mainbox { spacing: 0; padding: 10px; background-color: transparent; children: [ listview, message ]; }
 mode-switcher { enabled: false; }
-message { enabled: false; }
+message { enabled: true; padding: 0 0 6px 0; border: 0; background-color: transparent; }
+textbox { horizontal-align: 0.5; background-color: transparent; text-color: #ffffff59; font: "Iosevka Nerd Font 11"; }
 inputbar {
     padding: 5px;
     margin: 0;
@@ -33,7 +41,7 @@ listview {
     lines: 1;
     fixed-columns: true;
     spacing: 20px;
-    padding: 26px 36px;
+    padding: 16px 24px;
     border: 0;
     scrollbar: false;
     fixed-height: true;
@@ -58,7 +66,7 @@ element selected.normal, element selected.active {
 }
 element-icon { size: 300px; horizontal-align: 0.5; expand: false; background-color: transparent; }
 element-text {
-    horizontal-align: 0;
+    horizontal-align: 0.5;
     background-color: transparent;
     text-color: inherit;
     font: "Iosevka Nerd Font 13";

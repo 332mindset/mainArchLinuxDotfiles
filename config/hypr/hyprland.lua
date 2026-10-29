@@ -70,6 +70,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("~/.config/hypr/scripts/wallpaper_picker.py --restore")
     hl.exec_cmd("sleep 3 && ~/.config/waybar/scripts/launch.sh")
     hl.exec_cmd("swaync")
+    hl.exec_cmd("qs")
     hl.exec_cmd("~/.config/hypr/scripts/clipboard-start.sh")
 end)
 
@@ -152,43 +153,22 @@ hl.config({
     },
 })
 
--- Snappy motion: windows pop in with a small overshoot, close quickly and
--- workspaces slide as a whole. Speed is in deciseconds: lower is faster.
+-- Animations from Hyprlust (NischalDawadi): one soft easeOut curve, windows
+-- slide in and pop, workspaces glide sideways. Speed is in deciseconds.
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
-hl.curve("overshot", { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.08} } })
-hl.curve("easeOutQuint", { type = "bezier", points = { {0.23, 1}, {0.32, 1} } })
-hl.curve("easeInCubic", { type = "bezier", points = { {0.32, 0}, {0.67, 0} } })
-hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
+hl.curve("default", { type = "bezier", points = { {0, 1}, {0, 1} } })
+hl.curve("easeOut", { type = "bezier", points = { {0.16, 1}, {0.3, 1} } })
 hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
 
-hl.animation({ leaf = "global", enabled = true, speed = 4, bezier = "easeOutQuint" })
--- Open: grow from 80% with a light bounce.
-hl.animation({ leaf = "windows", enabled = true, speed = 4, bezier = "overshot" })
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 4, bezier = "overshot", style = "popin 80%" })
--- Close: shrink and fade out fast, no lingering.
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.6, bezier = "easeInCubic", style = "popin 88%" })
-hl.animation({ leaf = "windowsMove", enabled = true, speed = 3.5, bezier = "overshot" })
-hl.animation({ leaf = "fade", enabled = true, speed = 3, bezier = "quick" })
-hl.animation({ leaf = "fadeIn", enabled = true, speed = 2.5, bezier = "quick" })
-hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.6, bezier = "easeInCubic" })
-hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 3, bezier = "quick" })
-hl.animation({ leaf = "fadeShadow", enabled = true, speed = 3, bezier = "quick" })
-hl.animation({ leaf = "fadeDim", enabled = true, speed = 3, bezier = "quick" })
-hl.animation({ leaf = "border", enabled = true, speed = 4, bezier = "quick" })
+hl.animation({ leaf = "windows", enabled = true, speed = 6.9, bezier = "easeOut", style = "slide" })
+hl.animation({ leaf = "windowsIn", enabled = true, speed = 6.9, bezier = "easeOut", style = "popin 90%" })
+hl.animation({ leaf = "windowsOut", enabled = true, speed = 6.9, bezier = "easeOut", style = "popin 80%" })
+hl.animation({ leaf = "windowsMove", enabled = true, speed = 6.9, bezier = "easeOut", style = "slide" })
+hl.animation({ leaf = "fade", enabled = true, speed = 10, bezier = "default" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 10, bezier = "easeOut", style = "slide" })
+hl.animation({ leaf = "layers", enabled = true, speed = 6.9, bezier = "easeOut", style = "slide" })
+-- Kept from the previous setup: rotating gradient border.
 hl.animation({ leaf = "borderangle", enabled = true, speed = 80, bezier = "linear", style = "loop" })
-hl.animation({ leaf = "layers", enabled = true, speed = 3.5, bezier = "easeOutQuint" })
-hl.animation({ leaf = "layersIn", enabled = true, speed = 3.5, bezier = "easeOutQuint", style = "popin 90%" })
-hl.animation({ leaf = "layersOut", enabled = true, speed = 1.6, bezier = "easeInCubic", style = "popin 90%" })
-hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 2.5, bezier = "quick" })
-hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.6, bezier = "easeInCubic" })
-hl.animation({ leaf = "fadePopupsIn", enabled = true, speed = 2, bezier = "quick" })
-hl.animation({ leaf = "fadePopupsOut", enabled = true, speed = 1.5, bezier = "easeInCubic" })
--- Workspaces: a physical slide. The spring starts gently, glides and settles
--- with a tiny bounce; the 92% fade-in softens the edges of the incoming desktop.
-hl.curve("workspaceSpring", { type = "spring", mass = 1, stiffness = 120, dampening = 17 })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 5, spring = "workspaceSpring", style = "slidefade 92%" })
-hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 3.5, bezier = "easeOutQuint", style = "slidevert" })
-hl.animation({ leaf = "zoomFactor", enabled = true, speed = 4, bezier = "easeOutQuint" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 -- "Smart gaps" / "No gaps when only"
@@ -289,6 +269,7 @@ local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("qs ipc call media toggle"))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 -- Use the custom launchers when installed, with working local fallbacks.
 local home = os.getenv("HOME")
@@ -322,6 +303,12 @@ hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
+
+-- Move the active window with mainMod + SHIFT + arrow keys
+hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.window.move({ direction = "down" }))
 
 -- Switch workspaces with mainMod + [1-9]
 -- Move active window to a workspace with mainMod + SHIFT + [1-9]

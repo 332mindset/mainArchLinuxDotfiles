@@ -35,6 +35,7 @@
 
 **kitty + zsh** — fastfetch with a random pokémon<br>
 **swaync · cava** — notifications, visualizer<br>
+**quickshell** — media popup with a live visualizer<br>
 **dolphin · gtk** — catppuccin mocha, papirus, bibata<br>
 **scripts** — screenshots + satty, color picker
 
@@ -59,7 +60,7 @@ Install the packages below first. Then log in to Hyprland and press **Super + F*
 
 ```sh
 sudo pacman -Syu --needed \
-  hyprland hyprlock waybar rofi kitty zsh swaync cava awww \
+  hyprland hyprlock waybar rofi kitty zsh swaync cava awww quickshell \
   git python wl-clipboard cliphist grim slurp libnotify \
   wireplumber pipewire pipewire-pulse playerctl pavucontrol \
   fastfetch dolphin fontconfig ttf-jetbrains-mono-nerd ttf-iosevka-nerd adwaita-fonts \
@@ -117,11 +118,13 @@ Keyboard is **US + RU** (**Super + Space**); set `kb_layout = "us"` in `hyprland
 | Super + Shift + E | power menu |
 | Super + L | lock |
 | Super + N | notifications |
+| Super + M | media player |
 | Super + R | restart Waybar |
 | Ctrl + End / + Shift | area / full screenshot |
 | Ctrl + Alt + End | screenshot → Satty |
 | Super + Shift + C | color picker (HEX) |
 | Super + 1…9 / + Shift | switch / move to workspace |
+| Super + Shift + arrows | move window |
 | Super + Space | EN / RU |
 | Super + V · P · J | float · pseudotile · split |
 | Super + S / + Shift | scratchpad toggle / move |
@@ -134,7 +137,7 @@ Keyboard is **US + RU** (**Super + Space**); set `kb_layout = "us"` in `hyprland
 <br>
 
 - Built on Hyprland **0.56.2** with the **Lua config** (`hyprland.lua`) — older `hyprland.conf`-only versions won't work.
-- Tested with Waybar 0.15.0, Rofi 2.0.0, Kitty 0.49.2, Hyprlock 0.9.6, SwayNC 0.12.6, Cava 1.0.0, awww 0.12.1.
+- Tested with Waybar 0.15.0, Rofi 2.0.0, Kitty 0.49.2, Hyprlock 0.9.6, SwayNC 0.12.6, Cava 1.0.0, awww 0.12.1, Quickshell 0.3.2.
 - Monitors are auto-detected; the original two-monitor layout is in [`examples/monitors.lua`](examples/monitors.lua).
 - Expects Zsh + oh-my-zsh, default `~/.config` and a home path without spaces.
 - The palette is static — wallpapers don't recolor anything. Colors live in `waybar/matugen.css`, `kitty/matugen.conf`, `rofi/themes/matugen-colors.rasi`, `hypr/colors.lua`.

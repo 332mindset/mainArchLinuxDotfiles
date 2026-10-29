@@ -115,10 +115,16 @@
   "group/demo": {
     "orientation": "inherit",
     "modules": [
+      "custom/media",
       "tray",
       "hyprland/language",
       "pulseaudio"
     ]
+  },
+  "custom/media": {
+    "format": "󰎆",
+    "tooltip-format": "Media player",
+    "on-click": "qs ipc call media toggle"
   },
   "hyprland/language": {
     "format": "{}",

@@ -35,7 +35,12 @@ def choose(entries, prompt="Power", confirm=False):
         "rofi", "-dmenu", "-i", "-no-custom", "-show-icons", "-format", "i",
         "-p", prompt, "-theme", str(THEME),
         "-selected-row", "0" if confirm else str(len(entries) - 1),
-        "-mesg", "Enter — select  ·  Esc — close",
+        "-mesg", "Click or Enter — select  ·  Esc — close",
+        # Rofi accepts only on double-click by default; make a single click act.
+        "-me-select-entry", "", "-me-accept-entry", "MousePrimary",
+        # Arrows move between tiles; the search field keeps Ctrl+b/f for the cursor.
+        "-kb-move-char-back", "Control+b", "-kb-move-char-forward", "Control+f",
+        "-kb-row-left", "Left,Control+Page_Up", "-kb-row-right", "Right,Control+Page_Down",
     ]
     if confirm:
         command += ["-theme-str", "window { width: 470px; } listview { lines: 1; columns: 2; }"]
